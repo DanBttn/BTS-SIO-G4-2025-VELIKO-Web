@@ -1,14 +1,13 @@
 services:
   database:
-    container_name: veliko-database
-    image: mariadb:10.5.8
+    container_name: veliko-mariadb
+    image: mariadb:latest
     ports:
       - "3306:3306"
     restart: always
     environment:
       MYSQL_DATABASE: app_db
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_ROOT_PASSWORD: root
       TZ: Europe/Paris
     volumes:
       - ./var/dbdata:/var/lib/mysql
