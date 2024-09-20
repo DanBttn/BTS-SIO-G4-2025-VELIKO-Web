@@ -1,4 +1,9 @@
 services:
+  mock-veliko-api:
+    container_name: mock-veliko-api
+    image: bfoujols/mock-veliko-api:latest
+    ports:
+      - "9042:80"
   database:
     container_name: veliko-mariadb
     image: mariadb:latest
