@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MapController extends AbstractController
 {
-    #[Route('/map', name: 'app_map')]
+    #[Route('/', name: 'app_map')]
 
         public function execute(Request $request): Response
     {

@@ -85,7 +85,7 @@
             {% for station in stations %}
             var latitude = {{ station.lat }};
             var longitude = {{ station.lon }};
-            var marker = L.marker([latitude, longitude]).addTo(macarte);
+            var marker = L.marker([latitude, longitude]);
 
             marker.bindPopup("<b>{{ station.name }}<b> <br> Capacité : {{ station.capacite }} <br> Vélos mécanique : {{ station.velo_mecanique }} <br> Vélos électriques : {{ station.velo_electrique }}")
 
