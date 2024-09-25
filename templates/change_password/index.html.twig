@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Change Password{% endblock %}
+
+{% block content %}
+    <h1>Change Your Password</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.current_password) }}
+    {{ form_row(form.new_password) }}
+    {{ form_row(form.confirm_password) }}
+
+    <button type="submit" class="btn btn-primary">Change Password</button>
+    {{ form_end(form) }}
+
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+{% endblock %}
