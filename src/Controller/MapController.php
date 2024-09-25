@@ -31,27 +31,14 @@ class MapController extends AbstractController
 
         ]);
 
-        $response1 = curl_exec($curl1);
+        $responseStations = curl_exec($curl1);
         $err1 = curl_error($curl1);
 
         curl_close($curl1);
 
-        $response1 =  json_decode($response1,true);
-
-//        foreach ($response['data']['stations'] as $station) {
-//            $latitude = $station['lat'];
-//            $longitude = $station['lon'];
-//
-//            echo "Latitude: $latitude, Longitude: $longitude <br>";
-//        }
+        $responseStations =  json_decode($responseStations,true);
 
 
-//        if ($err1) {
-//            echo "cURL Error #:" . $err1;
-//        } else {
-//            echo $response1;
-//        }
-        //echo $response['data']['stations'][0]['lat'];
 
 
         $curl2 = curl_init();
@@ -68,58 +55,36 @@ class MapController extends AbstractController
             CURLOPT_SSL_VERIFYPEER => false
         ]);
 
-        $response2 = curl_exec($curl2);
+        $responseStationsStatus = curl_exec($curl2);
         $err2 = curl_error($curl2);
 
         curl_close($curl2);
 
-        $response2 =  json_decode($response2,true);
+        $responseStationsStatus =  json_decode($responseStationsStatus,true);
 
         $stations = [];
 
 
 
-
-        for ($i1 = 0; $i1 < count($response1); $i1++){
+        foreach ($responseStations as $station1) {
             $stations_data = [];
-            for ($i2 = 0;  $i2 < count($response2); $i2++){
-                if ($response1[$i1]['station_id'] == $response2[$i2]['station_id']){
+
+            foreach ($responseStationsStatus as $station2) {
+                if ($station1['station_id'] == $station2['station_id']) {
+
                     $stations_data = [
-                        "name" => $response1[$i1]['name'],
-                        "lon" => $response1[$i1]['lon'],
-                        "lat" => $response1[$i1]['lat'],
-                        "velo_electrique" => $response2[$i2]['num_bikes_available_types'][1]['ebike'],
-                        "velo_mecanique" => $response2[$i2]['num_bikes_available_types'][0]['mechanical'],
-                        "capacite" => $response1[$i1]['capacity']
+                        "name" => $station1['name'],
+                        "lon" => $station1['lon'],
+                        "lat" => $station1['lat'],
+                        "velo_electrique" => $station2['num_bikes_available_types'][1]['ebike'],
+                        "velo_mecanique" => $station2['num_bikes_available_types'][0]['mechanical'],
+                        "capacite" => $station1['capacity']
                     ];
 
                     $stations[] = $stations_data;
-
                 }
             }
-
         }
-
-
-//        foreach ($response1['data']['stations'] as $station1) {
-//            $stations_data = [];
-//
-//            foreach ($response2['data']['stations'] as $station2) {
-//                if ($station1['station_id'] == $station2['station_id']) {
-//
-//                    $stations_data = [
-//                        "name" => $station1['name'],
-//                        "lon" => $station1['lon'],
-//                        "lat" => $station1['lat'],
-//                        "velo_electrique" => $station2['num_bikes_available_types'][1]['ebike'],
-//                        "velo_mecanique" => $station2['num_bikes_available_types'][0]['mechanical'],
-//                        "capacite" => $station1['capacity']
-//                    ];
-//
-//                    $stations[] = $stations_data;
-//                }
-//            }
-//        }
 
 
         //var_dump($stations);
@@ -135,8 +100,6 @@ class MapController extends AbstractController
             [
                 "titre"   => 'MapController',
                 "request" => $request,
-                "response1" => $response1,
-                "response2" => $response2,
                 "stations" => $stations
             ]
         );
