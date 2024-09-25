@@ -19,7 +19,8 @@ class MapController extends AbstractController
         $curl1 = curl_init();
 
         curl_setopt_array($curl1, [
-            CURLOPT_URL => "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/station_information.json",
+            CURLOPT_PORT => "9042",
+            CURLOPT_URL => "http://localhost:9042/api/stations",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 20,
@@ -56,7 +57,8 @@ class MapController extends AbstractController
         $curl2 = curl_init();
 
         curl_setopt_array($curl2, [
-            CURLOPT_URL => "https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/station_status.json?=",
+            CURLOPT_PORT => "9042",
+            CURLOPT_URL => "http://localhost:9042/api/stations/status",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 20,
@@ -75,25 +77,49 @@ class MapController extends AbstractController
 
         $stations = [];
 
-        foreach ($response1['data']['stations'] as $station1) {
+
+
+
+        for ($i1 = 0; $i1 < count($response1); $i1++){
             $stations_data = [];
-
-            foreach ($response2['data']['stations'] as $station2) {
-                if ($station1['station_id'] == $station2['station_id']) {
-
+            for ($i2 = 0;  $i2 < count($response2); $i2++){
+                if ($response1[$i1]['station_id'] == $response2[$i2]['station_id']){
                     $stations_data = [
-                        "name" => $station1['name'],
-                        "lon" => $station1['lon'],
-                        "lat" => $station1['lat'],
-                        "velo_electrique" => $station2['num_bikes_available_types'][1]['ebike'],
-                        "velo_mecanique" => $station2['num_bikes_available_types'][0]['mechanical'],
-                        "capacite" => $station1['capacity']
+                        "name" => $response1[$i1]['name'],
+                        "lon" => $response1[$i1]['lon'],
+                        "lat" => $response1[$i1]['lat'],
+                        "velo_electrique" => $response2[$i2]['num_bikes_available_types'][1]['ebike'],
+                        "velo_mecanique" => $response2[$i2]['num_bikes_available_types'][0]['mechanical'],
+                        "capacite" => $response1[$i1]['capacity']
                     ];
 
                     $stations[] = $stations_data;
+
                 }
             }
+
         }
+
+
+//        foreach ($response1['data']['stations'] as $station1) {
+//            $stations_data = [];
+//
+//            foreach ($response2['data']['stations'] as $station2) {
+//                if ($station1['station_id'] == $station2['station_id']) {
+//
+//                    $stations_data = [
+//                        "name" => $station1['name'],
+//                        "lon" => $station1['lon'],
+//                        "lat" => $station1['lat'],
+//                        "velo_electrique" => $station2['num_bikes_available_types'][1]['ebike'],
+//                        "velo_mecanique" => $station2['num_bikes_available_types'][0]['mechanical'],
+//                        "capacite" => $station1['capacity']
+//                    ];
+//
+//                    $stations[] = $stations_data;
+//                }
+//            }
+//        }
 
 
         //var_dump($stations);
