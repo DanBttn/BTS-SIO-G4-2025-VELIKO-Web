@@ -1,14 +1,11 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ titre }}{% endblock %}
-
 {% block content %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
     <style type="text/css">
-        #map{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+        #map{
             width: 100%;
-            height: 100vh; /* Utilise toute la hauteur de la fenêtre */
-            /*position: fixed; !* Reste en position fixe pour rester en plein écran *!*/
+            height: 100vh;
             top: 0;
             left: 0;
             border-radius: 10px;
@@ -17,7 +14,7 @@
             z-index: 999;
         }
     </style>
-    <h1>{{ titre }}</h1>
+
     <div id="map">
         <!-- Ici s'affichera la carte -->
     </div>
@@ -27,89 +24,73 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
     <script type="text/javascript">
-        // On initialise la latitude et la longitude de Paris (centre de la carte)
         var macarte = null;
 
-        // Fonction d'initialisation de la carte
         function initMap() {
-
-            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+            // Initialisation de la carte
             macarte = L.map('map').setView([48.852969, 2.349903], 11);
 
-            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-
-                // Il est toujours bien de laisser le lien vers la source des données
                 attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
                 minZoom: 1,
                 maxZoom: 20
             }).addTo(macarte);
 
-            if (!navigator.geolocation)
-            {
-                console.log("Your browser doesn't support geolocation feature!")
-            }
-            else
-            {
-                navigator.geolocation.getCurrentPosition(getPosition)
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getPosition);
             }
 
-            function getPosition(position)
-            {
+            function getPosition(position) {
+                var lat = position.coords.latitude;
+                var long = position.coords.longitude;
 
-                var lat = position.coords.latitude
-                var long = position.coords.longitude
-
-                var marker = L.marker([lat, long]).addTo(macarte)
-                marker.bindPopup("You're here !").openPopup();
+                var marker = L.marker([lat, long]).addTo(macarte);
+                marker.bindPopup("You're here!").openPopup();
                 macarte.setView([lat, long], 15);
-                var circle = L.circle([lat,long], {
+
+                L.circle([lat, long], {
                     color: 'red',
                     fillColor: '#f03',
                     fillOpacity: 0.5,
                     radius: 50
                 }).addTo(macarte);
-
-                console.log(lat,long)
-
             }
 
-
             var markers = L.markerClusterGroup({
-                maxClusterRadius: 100, // Ajustez cette valeur selon vos besoins
-                disableClusteringAtZoom: 15, // Par exemple, désactiver le regroupement à partir du zoom 15
-                spiderfyOnMaxZoom: true // Activer spiderfy lorsque le zoom maximal est atteint
+                maxClusterRadius: 100,
+                disableClusteringAtZoom: 15,
+                spiderfyOnMaxZoom: true
             });
-
 
             {% for station in stations %}
             var latitude = {{ station.lat }};
             var longitude = {{ station.lon }};
+            var popupContent = "<b>{{ station.name }}</b><br>Capacité : {{ station.capacite }}<br>Vélos mécanique : {{ station.velo_mecanique }}<br>Vélos électriques : {{ station.velo_electrique }}";
+
             var marker = L.marker([latitude, longitude]);
 
-            marker.bindPopup("<b>{{ station.name }}<b> <br> Capacité : {{ station.capacite }} <br> Vélos mécanique : {{ station.velo_mecanique }} <br> Vélos électriques : {{ station.velo_electrique }}")
+            // Lier la popup
+            marker.bindPopup(popupContent);
+
+            // Afficher la popup au survol
+            marker.on('mouseover', function (e) {
+                this.openPopup();
+            });
+
+            // Rendre la popup permanente au clic
+            marker.on('click', function (e) {
+                this.openPopup();  // Popup reste ouverte au clic
+            });
+
 
             markers.addLayer(marker);
-
             {% endfor %}
 
             macarte.addLayer(markers);
-
-
         }
 
-
-
-
-        window.onload = function(){
-            // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+        window.onload = function() {
             initMap();
         };
     </script>
-
-
-
-
-
-
 {% endblock %}
