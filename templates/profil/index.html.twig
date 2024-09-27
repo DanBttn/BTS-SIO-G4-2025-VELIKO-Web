@@ -3,20 +3,22 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block content %}
-    <form method="post" class="container">
-        {{ form_start(profilForm) }}
+    {{ form_start(profilForm) }}
 
-        {# Uncomment each line to find the problematic field #}
-        {{ form_row(profilForm.email) }}
-        {{ form_row(profilForm.nom) }}
-        {{ form_row(profilForm.date_naiss) }}
-        {{ form_row(profilForm.code_postal) }}
-        {{ form_row(profilForm.ville) }}
+    {# Uncomment each line to find the problematic field #}
+    {{ form_row(profilForm.email) }}
+    {{ form_row(profilForm.nom) }}
+    {{ form_row(profilForm.prenom) }}
+    {{ form_row(profilForm.date_naiss) }}
+    {{ form_row(profilForm.adresse) }}
+    {{ form_row(profilForm.code_postal) }}
+    {{ form_row(profilForm.ville) }}
 
 
-        {{ form_end(profilForm) }}
-        <button type="submit" class="btn btn-primary">Modifier</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+
+
+    {{ form_end(profilForm) }}
 
 
 {% endblock %}
