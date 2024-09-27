@@ -46,6 +46,12 @@
 
                 var marker = L.marker([lat, long]).addTo(macarte);
                 marker.bindPopup("You're here!").openPopup();
+
+                // Afficher la popup au survol
+                marker.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+
                 macarte.setView([lat, long], 15);
 
                 L.circle([lat, long], {
@@ -77,10 +83,7 @@
                 this.openPopup();
             });
 
-            // Rendre la popup permanente au clic
-            marker.on('click', function (e) {
-                this.openPopup();  // Popup reste ouverte au clic
-            });
+
 
 
             markers.addLayer(marker);
