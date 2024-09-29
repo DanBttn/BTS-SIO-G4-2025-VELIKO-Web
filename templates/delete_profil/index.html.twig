@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer le profil{% endblock %}
+
+{% block content %}
+    <div class="mb-3">
+        Vous êtes connecté en tant que {{ app.user.userIdentifier }}.
+    </div>
+
+    <div>
+        <p>Souhaitez-vous vraiment supprimer votre compte ? Cette action est irréversible.</p>
+
+        {# Formulaire avec protection CSRF pour la suppression du profil #}
+        <form action="{{ path('app_delete_profil') }}" method="post">
+            {# Protection CSRF #}
+            <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
+
+            <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+        </form>
+    </div>
+{% endblock %}
