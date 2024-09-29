@@ -3,14 +3,14 @@
 {% block title %}Change Password{% endblock %}
 
 {% block content %}
-    <h1>Change Your Password</h1>
+    <h1>Changez votre mot de passe</h1>
 
     {{ form_start(form) }}
     {{ form_row(form.current_password) }}
     {{ form_row(form.new_password) }}
     {{ form_row(form.confirm_password) }}
 
-    <button type="submit" class="btn btn-primary">Change Password</button>
+    <button type="submit" class="btn btn-primary">Changer de mot de passe </button>
     {{ form_end(form) }}
 
 
