@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+}
+
+.navbar .logo {
+    width: 150px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+.menu .nav-link {
+    color: #07bfe1;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.menu .nav-link:hover {
+    text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    background-image: url('/public/images/fondAccueil.jpg'); /* Example background */
+    background-size: cover;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.objective, .stats {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 45%;
+}
+
+.objective h2, .stats h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.objective p {
+    font-size: 16px;
+}
+
+.stats ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+}
+
+.stats ul li {
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #07bfe1;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.login, .register {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 45%;
+}
+
+.auth h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #d4edda;
+    color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #c3e6cb;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+}
+
+.social-icons img {
+    width: 40px;
+}

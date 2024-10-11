@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+    Veliko - Page d'accueil
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+
+        <div class="row justify-content-around mt-4">
+            <div class="col-md-5 bg-white p-4 rounded shadow-sm">
+                <h2>Objectif</h2>
+                <p>
+                    Vous fournir des informations précises concernant la disponibilité des vélos
+                    au sein des 1400 stations réparties à travers Paris et l'Ile-de-France.
+                </p>
+            </div>
+
+            <div class="col-md-5 bg-white p-4 rounded shadow-sm">
+                <h2>Chiffres</h2>
+                <ul>
+                    <li>1 464 stations</li>
+                    <li>19 000 <span class="highlight">vélos</span>, dont 40% à <span class="highlight">assistance électrique</span></li>
+                    <li>390 000 abonnés en 2022</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row justify-content-around mt-4">
+            <div class="col-md-5 bg-white p-4 rounded shadow-sm text-center">
+                <h3>Déjà abonné.e ?</h3>
+                <a href="/login" class="btn btn-success btn-lg">Connexion</a>
+            </div>
+
+            <div class="col-md-5 bg-white p-4 rounded shadow-sm text-center">
+                <h3>Première fois sur Veliko ?</h3>
+                <a href="/register" class="btn btn-success btn-lg">Inscription</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col text-center">
+                <a href="https://instagram.com"><img src="/images/instagram.png" alt="Instagram" class="mx-2"></a>
+                <a href="https://facebook.com"><img src="/images/facebook.png" alt="Facebook" class="mx-2"></a>
+                <a href="https://twitter.com"><img src="/images/x.png" alt="Twitter" class="mx-2"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
