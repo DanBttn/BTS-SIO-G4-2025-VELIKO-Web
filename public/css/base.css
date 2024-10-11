@@ -1,0 +1,40 @@
+body {
+    background-color: #fafafa;
+}
+
+
+/* Style des liens de la navbar */
+.navbar-nav .nav-link {
+    color: #6cbb3e; /* couleur par défaut des liens */
+    transition: color 0.3s ease;
+}
+
+/* Lorsque le lien est cliqué et devient actif */
+.navbar-nav .nav-link.active {
+    color: #07bfe1;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+.highlight {
+    color: #07bfe1;
+}
+
+/* Additional button styling if needed */
+.btn-success {
+    background-color: #d4edda;
+    color: #333;
+}
+
+.btn-success:hover {
+    background-color: #c3e6cb;
+}
+
+a img {
+    width: 40px;
+}
+
+
+
