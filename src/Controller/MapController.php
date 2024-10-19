@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\StationFavori;
+use Doctrine\ORM\EntityManagerInterface;
+//use http\Client\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class MapController extends AbstractController
 {
     #[Route('/map', name: 'app_map')]
 
-        public function execute(Request $request): Response
+    public function execute(Request $request, EntityManagerInterface $entityManager): Response
     {
 
 
@@ -30,14 +33,12 @@ class MapController extends AbstractController
 
         ]);
 
-        $responseStations = curl_exec($curl1);
+        $responseStation = curl_exec($curl1);
         $err1 = curl_error($curl1);
 
         curl_close($curl1);
 
-        $responseStations =  json_decode($responseStations,true);
-
-
+        $responseStation =  json_decode($responseStation,true);
 
 
         $curl2 = curl_init();
@@ -53,46 +54,51 @@ class MapController extends AbstractController
             CURLOPT_SSL_VERIFYPEER => false
         ]);
 
-        $responseStationsStatus = curl_exec($curl2);
+        $responseStationStatus = curl_exec($curl2);
         $err2 = curl_error($curl2);
 
         curl_close($curl2);
 
-        $responseStationsStatus =  json_decode($responseStationsStatus,true);
+        $responseStationStatus =  json_decode($responseStationStatus,true);
+
+
+        $user = $this->getUser(); // Récupérer l'utilisateur actuel
+        $favoris = [];
+
+        // Récupérer les favoris de l'utilisateur si connecté
+        if ($user) {
+            $favoris = $entityManager->getRepository(StationFavori::class)->findBy([
+                'id_user' => $user->getId(),
+            ]);
+            $favorisIds = array_map(fn($fav) => $fav->getIdStation(), $favoris); // Récupérer les IDs des stations favoris
+        }
 
         $stations = [];
 
+        foreach ($responseStation as $station1) {
+            //$stations_data = [];
 
-
-        foreach ($responseStations as $station1) {
-            $stations_data = [];
-
-            foreach ($responseStationsStatus as $station2) {
+            foreach ($responseStationStatus as $station2) {
                 if ($station1['station_id'] == $station2['station_id']) {
 
+                    $isFavori = in_array($station1['station_id'], $favorisIds); // Vérifier si la station est un favori
+
+
                     $stations_data = [
+                        "station_id" => $station1['station_id'],
                         "name" => $station1['name'],
                         "lon" => $station1['lon'],
                         "lat" => $station1['lat'],
                         "velo_electrique" => $station2['num_bikes_available_types'][1]['ebike'],
                         "velo_mecanique" => $station2['num_bikes_available_types'][0]['mechanical'],
-                        "capacite" => $station1['capacity']
+                        "capacite" => $station1['capacity'],
+                        "isFavori" => $isFavori,
                     ];
 
                     $stations[] = $stations_data;
                 }
             }
         }
-
-
-        //var_dump($stations);
-
-        //var_dump($response2['data']['stations'][0]['num_bikes_available_types'][1]['ebike']);
-
-
-
-
-
 
         return $this->render('map/index.html.twig',
             [
@@ -102,5 +108,41 @@ class MapController extends AbstractController
             ]
         );
     }
+
+
+    #[Route('/ajout/favori', name: 'app_ajout_favori', methods: ['POST'])]
+    public function ajoutFavori(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        // Récupérer les données JSON envoyées via la requête AJAX
+        $data = json_decode($request->getContent(), true);
+        $stationId = $data['station_id'];
+
+
+
+        // Vérifier si la station est déjà dans les favoris
+        $stationFavori = $entityManager->getRepository(StationFavori::class)->findOneBy([
+            'id_user' => $user->getId(),
+            'id_station' => $stationId
+        ]);
+
+        if ($stationFavori) {
+            // Si la station est déjà un favori, la supprimer
+            $entityManager->remove($stationFavori);
+            $entityManager->flush();
+            return new Response('Station retirée des favoris !');
+        } else {
+            // Sinon, ajouter la station aux favoris
+            $stationFavori = new StationFavori();
+            $stationFavori->setIdUser($user->getId());
+            $stationFavori->setIdStation($stationId);
+            $entityManager->persist($stationFavori);
+            $entityManager->flush();
+            return new Response('Station ajoutée aux favoris !');
+        }
+    }
+
+
 
 }

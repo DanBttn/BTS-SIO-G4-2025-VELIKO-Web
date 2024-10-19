@@ -68,10 +68,20 @@
                 spiderfyOnMaxZoom: true
             });
 
+
+
             {% for station in stations %}
             var latitude = {{ station.lat }};
             var longitude = {{ station.lon }};
             var popupContent = "<b>{{ station.name }}</b><br>Capacité : {{ station.capacite }}<br>Vélos mécanique : {{ station.velo_mecanique }}<br>Vélos électriques : {{ station.velo_electrique }}";
+
+            {% if is_granted('ROLE_USER') %}
+
+            var buttonLabel = {{ station.isFavori ? "'Retirer des favoris'" : "'Ajouter aux favoris'" }};
+            popupContent += `<br><button id="buttonFavori" onclick="addToFavorites('{{ station.station_id }}')">${buttonLabel}</button>`;
+            {% endif %}
+
+
 
             var marker = L.marker([latitude, longitude]);
 
@@ -85,12 +95,36 @@
 
 
 
-
             markers.addLayer(marker);
             {% endfor %}
 
             macarte.addLayer(markers);
         }
+
+
+
+        function addToFavorites(stationId) {
+            console.log("Station ID à ajouter/retirer :", stationId);
+            fetch('/ajout/favori', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ station_id: stationId })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // Affichez le message renvoyé par le serveur
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Une erreur est survenue');
+                });
+            document.getElementById('buttonFavori').innerHTML = document.getElementById('buttonFavori').innerHTML === 'Ajouter aux favoris' ? 'Retirer des favoris' : 'Ajouter aux favoris';
+        }
+
+
 
         window.onload = function() {
             initMap();
