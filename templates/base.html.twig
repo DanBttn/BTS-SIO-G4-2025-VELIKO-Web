@@ -32,13 +32,16 @@
                     <li class="nav-item">
                         <a class="nav-link {% if app.request.get('_route') == 'app_register' %}active{% endif %}" href="/register">Inscription</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route') == 'app_accueil_profil' %}active{% endif %}" href="/accueil/profil">Mon compte</a>
-                    </li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if app.request.get('_route') == 'app_accueil_profil' %}active{% endif %}" href="/accueil/profil">Mon compte</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+
 
 
     {% block content %}{% endblock %}
@@ -46,8 +49,35 @@
     {% block footer %}
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container">
+                <div class="row justify-content-center mt-5">
+                    <div style="display: flex; justify-content: center;">
+                        <table>
+                            <tr>
+                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
+                                    <a href="https://instagram.com">
+                                        <img src="/images/instagram.png" alt="Instagram" class="mx-2"  style="color:white" >
+                                        <br> instagram
+                                    </a>
+                                </th>
+                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
+                                    <a href="https://facebook.com">
+                                        <img src="/images/facebook.png" alt="Facebook" class="mx-2">
+                                        <br> facebook
+                                    </a>
+                                </th>
+                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
+                                    <a href="https://twitter.com">
+                                        <img src="/images/x.png" alt="Twitter" class="mx-2">
+                                        <br> x
+                                    </a>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <br><br> © 2024 Veliko. Tous droits réservés.
+                </div>
 
-                <br> &copy; 2024 véliko.</span>
+
             </div>
         </footer>
     {% endblock %}
