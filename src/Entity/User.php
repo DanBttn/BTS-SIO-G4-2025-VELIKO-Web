@@ -52,6 +52,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_naiss = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $confirmationToken = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -194,6 +200,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateNaiss(\DateTimeInterface $date_naiss): static
     {
         $this->date_naiss = $date_naiss;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): static
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
