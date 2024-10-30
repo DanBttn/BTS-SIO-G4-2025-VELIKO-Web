@@ -24,7 +24,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
     <script type="text/javascript">
+
         var macarte = null;
+
+        // Objet pour stocker l'état des favoris des stations
+        var stationFavorites = {};
+
+        // Initialisation de l'objet stationFavorites
+        {% for station in stations %}
+        stationFavorites["{{ station.station_id }}"] = {{ station.isFavori ? 'true' : 'false' }};
+        {% endfor %}
 
         function initMap() {
             // Initialisation de la carte
@@ -73,19 +82,24 @@
             {% for station in stations %}
             var latitude = {{ station.lat }};
             var longitude = {{ station.lon }};
-            var popupContent = "<b>{{ station.name }}</b><br>Capacité : {{ station.capacite }}<br>Vélos mécanique : {{ station.velo_mecanique }}<br>Vélos électriques : {{ station.velo_electrique }}";
-
-            {% if is_granted('ROLE_USER') %}
-
-            var buttonLabel = {{ station.isFavori ? "'Retirer des favoris'" : "'Ajouter aux favoris'" }};
-            popupContent += `<br><button id="buttonFavori" onclick="addToFavorites('{{ station.station_id }}', {{ station.name|json_encode() }})">${buttonLabel}</button>`;
-
-            {% endif %}
 
             var marker = L.marker([latitude, longitude]);
 
-            // Lier la popup
-            marker.bindPopup(popupContent);
+            // Utilisez une fonction dans bindPopup pour générer le contenu dynamique de la popup
+            marker.bindPopup(() => {
+                const isFavori = stationFavorites["{{ station.station_id }}"];
+                let popupContent = `<b>{{ station.name }}</b><br>
+                        Capacité : {{ station.capacite }}<br>
+                        Vélos mécanique : {{ station.velo_mecanique }}<br>
+                        Vélos électriques : {{ station.velo_electrique }}`;
+
+                {% if is_granted('ROLE_USER') %}
+                const buttonLabel = isFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
+                popupContent += `<br><button id="buttonFavori" data-station-id="{{ station.station_id }}" onclick="addToFavorites('{{ station.station_id }}', {{ station.name|json_encode() }})">${buttonLabel}</button>`;
+                {% endif %}
+
+                return popupContent;
+            });
 
             // Afficher la popup au survol
             marker.on('mouseover', function (e) {
@@ -103,5 +117,5 @@
         };
     </script>
 
-    <script src="{{ asset('js/favori.js') }}"></script>
+    <script src="{{ asset('js/favoriMap.js') }}"></script>
 {% endblock %}

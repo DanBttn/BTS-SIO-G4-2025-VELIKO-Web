@@ -76,17 +76,13 @@ class FavoriController extends AbstractController
     #[Route('/delete/favori/{id_user}/{id_station}', name: 'app_supp_favori', methods: ['GET'])]
     public function supprimerFavori(int $id_station, int $id_user, EntityManagerInterface $entityManager): Response
     {
-        // Cherchez la station favori par son ID
+        // Cherchez la station favori par son ID et son utilisateur
         $stationFavori = $entityManager->getRepository(StationFavori::class)->findOneBy([
             'id_station' => $id_station,
-            'id_user' => $id_user  // Assurez-vous que l'utilisateur est le propriétaire
+            'id_user' => $id_user
         ]);
 
-        if (!$stationFavori) {
-            throw $this->createNotFoundException('La station favorite n\'existe pas.');
-        }
-
-
+        // Supprimer la station favori
         $entityManager->remove($stationFavori);
         $entityManager->flush();
         $this->addFlash('success', 'Station retirée des favoris !');

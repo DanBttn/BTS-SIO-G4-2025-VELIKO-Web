@@ -15,13 +15,18 @@ function addToFavorites(stationId, stationName) {
     })
         .then(response => response.text())
         .then(data => {
-            alert(data);
+            alert(data);  // Affichez le message renvoyé par le serveur
 
-            // Supprimez dynamiquement la carte de la station
-            const stationCard = document.querySelector(`[data-station-id="${stationId}"]`);
-            if (stationCard) {
-                stationCard.remove();
-            }// Affichez le message renvoyé par le serveur
+
+            // Mettre à jour la liste des favoris
+            stationFavorites[stationId] = !stationFavorites[stationId];
+
+            // Mettre à jour le texte du bouton dans la popup
+            const buttonFavori = document.querySelector(`[data-station-id="${stationId}"]`);
+            if (buttonFavori) {
+                buttonFavori.textContent = stationFavorites[stationId] ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            }
+
         })
         .catch(error => {
             console.error('Error:', error);
