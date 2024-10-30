@@ -78,10 +78,9 @@
             {% if is_granted('ROLE_USER') %}
 
             var buttonLabel = {{ station.isFavori ? "'Retirer des favoris'" : "'Ajouter aux favoris'" }};
-            popupContent += `<br><button id="buttonFavori" onclick="addToFavorites('{{ station.station_id }}')">${buttonLabel}</button>`;
+            popupContent += `<br><button id="buttonFavori" onclick="addToFavorites('{{ station.station_id }}', {{ station.name|json_encode() }})">${buttonLabel}</button>`;
+
             {% endif %}
-
-
 
             var marker = L.marker([latitude, longitude]);
 
@@ -93,41 +92,16 @@
                 this.openPopup();
             });
 
-
-
             markers.addLayer(marker);
             {% endfor %}
 
             macarte.addLayer(markers);
         }
 
-
-
-        function addToFavorites(stationId) {
-            console.log("Station ID à ajouter/retirer :", stationId);
-            fetch('/ajout/favori', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({ station_id: stationId })
-            })
-                .then(response => response.text())
-                .then(data => {
-                    alert(data); // Affichez le message renvoyé par le serveur
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Une erreur est survenue');
-                });
-            document.getElementById('buttonFavori').innerHTML = document.getElementById('buttonFavori').innerHTML === 'Ajouter aux favoris' ? 'Retirer des favoris' : 'Ajouter aux favoris';
-        }
-
-
-
         window.onload = function() {
             initMap();
         };
     </script>
+
+    <script src="{{ asset('js/favori.js') }}"></script>
 {% endblock %}

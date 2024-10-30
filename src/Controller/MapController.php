@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\StationFavori;
+use App\veliko\Api;
 use Doctrine\ORM\EntityManagerInterface;
 //use http\Client\Response;
+use http\Env;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,56 +16,21 @@ class MapController extends AbstractController
 {
     #[Route('/map', name: 'app_map')]
 
-    public function execute(Request $request, EntityManagerInterface $entityManager): Response
+    public function execute(Request $request, EntityManagerInterface $entityManager, Api $api): Response
     {
 
-
-
-        $curl1 = curl_init();
-
-        curl_setopt_array($curl1, [
-            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/api/stations",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "",
-            CURLOPT_SSL_VERIFYPEER => false
-
-        ]);
-
-        $responseStation = curl_exec($curl1);
-        $err1 = curl_error($curl1);
-
-        curl_close($curl1);
-
+        $responseStation = $api->getApi("/api/stations");
         $responseStation =  json_decode($responseStation,true);
 
 
-        $curl2 = curl_init();
-
-        curl_setopt_array($curl2, [
-            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/api/stations/status",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "",
-            CURLOPT_SSL_VERIFYPEER => false
-        ]);
-
-        $responseStationStatus = curl_exec($curl2);
-        $err2 = curl_error($curl2);
-
-        curl_close($curl2);
-
+        $responseStationStatus = $api->getApi("/api/stations/status");
         $responseStationStatus =  json_decode($responseStationStatus,true);
+
 
 
         $user = $this->getUser(); // Récupérer l'utilisateur actuel
         $favoris = [];
+        $favorisIds = [];
 
         // Récupérer les favoris de l'utilisateur si connecté
         if ($user) {
@@ -110,38 +77,6 @@ class MapController extends AbstractController
     }
 
 
-    #[Route('/ajout/favori', name: 'app_ajout_favori', methods: ['POST'])]
-    public function ajoutFavori(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-
-        // Récupérer les données JSON envoyées via la requête AJAX
-        $data = json_decode($request->getContent(), true);
-        $stationId = $data['station_id'];
-
-
-
-        // Vérifier si la station est déjà dans les favoris
-        $stationFavori = $entityManager->getRepository(StationFavori::class)->findOneBy([
-            'id_user' => $user->getId(),
-            'id_station' => $stationId
-        ]);
-
-        if ($stationFavori) {
-            // Si la station est déjà un favori, la supprimer
-            $entityManager->remove($stationFavori);
-            $entityManager->flush();
-            return new Response('Station retirée des favoris !');
-        } else {
-            // Sinon, ajouter la station aux favoris
-            $stationFavori = new StationFavori();
-            $stationFavori->setIdUser($user->getId());
-            $stationFavori->setIdStation($stationId);
-            $entityManager->persist($stationFavori);
-            $entityManager->flush();
-            return new Response('Station ajoutée aux favoris !');
-        }
-    }
 
 
 

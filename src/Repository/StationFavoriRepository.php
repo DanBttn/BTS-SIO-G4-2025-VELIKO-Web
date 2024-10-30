@@ -16,6 +16,22 @@ class StationFavoriRepository extends ServiceEntityRepository
         parent::__construct($registry, StationFavori::class);
     }
 
+
+    /**
+     * Récupérer toutes les stations favorites d'un utilisateur
+     *
+     * @param int $id_user
+     * @return StationFavori[]
+     */
+    public function findStationsByUser(int $id_user): array
+    {
+        return $this->createQueryBuilder('station_fav')
+            ->andWhere('station_fav.id_user = :id_user')
+            ->setParameter('id_user', $id_user)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return StationFavori[] Returns an array of StationFavori objects
 //     */

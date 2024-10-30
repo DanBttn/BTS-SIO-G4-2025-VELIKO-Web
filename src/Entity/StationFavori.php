@@ -19,6 +19,9 @@ class StationFavori
     #[ORM\Column]
     private ?int $id_user = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom_station = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class StationFavori
     public function setIdUser(int $id_user): static
     {
         $this->id_user = $id_user;
+
+        return $this;
+    }
+
+    public function getNomStation(): ?string
+    {
+        return $this->nom_station;
+    }
+
+    public function setNomStation(string $nom_station): static
+    {
+        $this->nom_station = $nom_station;
 
         return $this;
     }
