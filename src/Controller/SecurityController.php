@@ -25,13 +25,6 @@ class SecurityController extends AbstractController
     {
         // Check if the user is already logged in
         $user = $this->getUser();
-        if ($user) {
-            // Check if the user account is verified
-            if (!$user->isVerified()) {
-                $this->addFlash('danger', 'Votre compte n\'est pas encore vérifié, veuillez vérifier votre boîte mail.');
-                return $this->redirectToRoute('app_logout');
-            }
-        }
 
         // Get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
