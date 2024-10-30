@@ -3,14 +3,19 @@
 {% block title %}Log in!{% endblock %}
 
 {% block content %}
+
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
     <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
 
         {% if app.user %}
             <div class="mb-3">
-                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
             </div>
         {% endif %}
 
@@ -22,13 +27,28 @@
         <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
         <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+               value="{{ csrf_token('authenticate') }}">
+        <p> <a href="/reset/password">Mot de passe oublié ?</a></p>
 
 
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <br>
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
         <button class="btn btn-lg btn-primary" type="submit">
             Se connecter
+
         </button>
+
+
     </form>
 {% endblock %}
