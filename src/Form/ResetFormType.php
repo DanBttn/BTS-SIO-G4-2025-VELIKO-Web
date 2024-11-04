@@ -22,7 +22,7 @@ $builder
 'constraints' => [
 new Assert\NotBlank(['message' => 'Le mot de passe est requis']),
 new Assert\Length([
-'min' => 6,
+'min' => 12,
 'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
 ]),
 ],

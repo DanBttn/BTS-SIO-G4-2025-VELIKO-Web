@@ -26,7 +26,7 @@ class PasswordChangeFormType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => 6,
+                        'min' => 12,
                         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
                     ]),
                 ],
