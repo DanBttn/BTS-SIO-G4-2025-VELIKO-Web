@@ -4,8 +4,39 @@
     <h1>Réinitialisation de votre mot de passe</h1>
 
     {{ form_start(form) }}
-    {{ form_row(form.plainPassword) }}
-    {{ form_row(form.confirmPassword) }}
-    <button class="btn btn-primary">Réinitialiser le mot de passe</button>
+    <div class="password-field">
+        {{ form_row(form.plainPassword, { label: 'Nouveau mot de passe' }) }}
+        <img src="{{ app_url }}/images/eyes.png" style="width: 20px; cursor: pointer;"
+             onclick="togglePasswordVisibility('{{ form.plainPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
+        <button type="button" onclick="generatePassword('{{ form.plainPassword.vars.id }}', '{{ form.confirmPassword.vars.id }}')" aria-label="Generate secure password">Génerer mot de passe</button>
+    </div>
+
+    <div class="password-field">
+        {{ form_row(form.confirmPassword, { label: 'Confirmez le mot de passe' }) }}
+        <img src="{{ app_url }}/images/eyes.png" style="width: 20px; cursor: pointer;"
+             onclick="togglePasswordVisibility('{{ form.confirmPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Réinitialiser le mot de passe</button>
     {{ form_end(form) }}
+
+    {# JavaScript for password field #}
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+        }
+
+        function generatePassword(plainPasswordId, confirmPasswordId) {
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!@^$¨,;/§-_";
+            let password = "";
+            for (let i = 0; i < 12; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            document.getElementById(plainPasswordId).value = password;
+            document.getElementById(confirmPasswordId).value = password;
+        }
+    </script>
 {% endblock %}

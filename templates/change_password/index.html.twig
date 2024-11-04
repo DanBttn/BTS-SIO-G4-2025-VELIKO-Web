@@ -3,16 +3,58 @@
 {% block title %}Change Password{% endblock %}
 
 {% block content %}
-    <h1>Changez votre mot de passe</h1>
+    <h1>Changer votre mot de passe</h1>
+
+    <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn btn-primary">Retour</a>
+    <br><br>
 
     {{ form_start(form) }}
-    {{ form_row(form.current_password) }}
-    {{ form_row(form.new_password) }}
-    {{ form_row(form.confirm_password) }}
+    <div>
+        {{ form_row(form.current_password) }}
+        <img src="{{ app_url }}/images/eyes.png" style="width: 20px"  onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
+    </div>
+    <div>
+        {{ form_row(form.new_password) }}
+        <img src="{{ app_url }}/images/eyes.png"  style="width: 20px" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
+        <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" aria-label="Generate secure password">Génerer mot de passe</button>
+    </div>
+    <div>
+        {{ form_row(form.confirm_password) }}
+        <img src="{{ app_url }}/images/eyes.png" style="width: 20px" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
+    </div>
 
-    <button type="submit" class="btn btn-primary">Changer de mot de passe </button>
+    <button type="submit" class="btn btn-primary">Changer de mot de passe</button>
     {{ form_end(form) }}
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
 
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+        }
+
+        function generatePassword(newPasswordId, confirmPasswordId) {
+            const password = generateSecurePassword();
+            document.getElementById(newPasswordId).value = password;
+            document.getElementById(confirmPasswordId).value = password;
+        }
+
+        function generateSecurePassword() {
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@$%^&*()_+<>?";
+            let password = "";
+            for (let i = 0; i < 12; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        }
+    </script>
 
 {% endblock %}
