@@ -15,7 +15,6 @@ class ProfilFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
             ->add('nom')
             ->add('prenom')
             -> add('date_naiss', DateType::class, [
