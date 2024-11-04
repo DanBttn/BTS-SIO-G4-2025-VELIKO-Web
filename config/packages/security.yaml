@@ -20,10 +20,11 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                default_target_path: app_map
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_login
+                target: app_accueil
             user_checker: App\veliko\UserChecker
 
 
