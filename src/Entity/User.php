@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -20,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer une adresse email')]
+    #[Assert\Email]
     private ?string $email = null;
 
     /**
@@ -35,18 +39,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer votre nom')]
+    #[Assert\Length(min: 3, max: 30)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer votre prénom')]
+    #[Assert\Length(min: 3, max: 30)]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer votre adresse')]
+    #[Assert\Regex(
+        pattern: '/[0-9]{1,4} [a-zA-Z ]{1,255}/',
+        message: 'Veuillez entrer une adresse valide'
+    )]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer votre ville')]
+    #[Assert\Regex(
+        pattern: '/[a-zA-Z ]{1,255}/',
+        message: 'Veuillez entrer une ville valide'
+    )]
     private ?string $ville = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank(message: 'Veuillez entrer votre code postal')]
+    #[Assert\Regex(
+        pattern: '/[0-9]{5}/',
+        message: 'Veuillez entrer un code postal valide'
+    )]
     private ?string $code_postal = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
