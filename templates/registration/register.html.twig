@@ -17,23 +17,17 @@
     {{ form_row(registrationForm.cp) }}
     {{ form_row(registrationForm.ville) }}
 
-    {# Champ de mot de passe avec boutons pour afficher et générer le mot de passe #}
+    {# Password field with visibility toggle and password generator button #}
     <div class="password-field">
         {{ form_row(registrationForm.plainPassword, {
             label: 'Mot de passe',
         }) }}
-        {% set randomPassword = [] %}
-        {% set alpha = 'abcdefghijklmnopqrstuvwxyz' %}
-        {% set numbers = '0123456789' %}
-        {% set caracter = '&#!@^$¨,;/§' %}
 
-        {% for i in 1..12 %}
-            {% set randomCharacter = random(alpha ~ alpha|upper ~ numbers ~ caracter ~ '-_') %}
-            {% set randomPassword = randomPassword|merge([randomCharacter]) %}
-        {% endfor %}
-        {% set randomPassword = randomPassword|join %}
+        {# Password visibility toggle #}
+        <img src="{{ asset('images/eyes.png') }}" style="width: 20px; cursor: pointer;"
+             onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}')">
 
-        <img src="{{ app_url }}/images/eyes.png" style="width: 20px" onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}') ">
+        {# Password generator button #}
         <button type="button" onclick="generatePassword('{{ registrationForm.plainPassword.vars.id }}')">Générer</button>
     </div>
 
@@ -41,22 +35,8 @@
     <button type="submit" class="btn btn-primary">S'inscrire</button>
     {{ form_end(registrationForm) }}
 
-    {# JavaScript pour le champ de mot de passe #}
-    <script>
-        function togglePasswordVisibility(fieldId) {
-            const passwordField = document.getElementById(fieldId);
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-        }
-        function generatePassword(fieldId) {
-            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#!@^$¨,;/§-_";
-            let password = "";
-            for (let i = 0; i < 12; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
-                password += charset[randomIndex];
-            }
-            document.getElementById(fieldId).value = password;
-        }
+    {# JavaScript for password field #}
+    <script src="{{ asset("js/generatePassword.js") }}">
 
     </script>
 {% endblock %}

@@ -11,16 +11,16 @@
     {{ form_start(form) }}
     <div>
         {{ form_row(form.current_password) }}
-        <img src="{{ app_url }}/images/eyes.png" style="width: 20px"  onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
+        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
     </div>
     <div>
         {{ form_row(form.new_password) }}
-        <img src="{{ app_url }}/images/eyes.png"  style="width: 20px" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
-        <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" aria-label="Generate secure password">Génerer mot de passe</button>
+        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
+        <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" aria-label="Generate secure password">Générer mot de passe</button>
     </div>
     <div>
         {{ form_row(form.confirm_password) }}
-        <img src="{{ app_url }}/images/eyes.png" style="width: 20px" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
+        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
     </div>
 
     <button type="submit" class="btn btn-primary">Changer de mot de passe</button>
@@ -33,28 +33,7 @@
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
 
-    <script>
-        function togglePasswordVisibility(fieldId) {
-            const passwordField = document.getElementById(fieldId);
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-        }
+    <script src="{{ asset("js/generatePassword.js") }}">
 
-        function generatePassword(newPasswordId, confirmPasswordId) {
-            const password = generateSecurePassword();
-            document.getElementById(newPasswordId).value = password;
-            document.getElementById(confirmPasswordId).value = password;
-        }
-
-        function generateSecurePassword() {
-            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@$%^&*()_+<>?";
-            let password = "";
-            for (let i = 0; i < 12; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
-                password += charset[randomIndex];
-            }
-            return password;
-        }
     </script>
-
 {% endblock %}
