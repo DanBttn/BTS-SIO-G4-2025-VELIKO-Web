@@ -33,7 +33,7 @@
         {% endfor %}
         {% set randomPassword = randomPassword|join %}
 
-        <img src="{{ app_url }}/images/eyes.png" style="width: 20px" onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}') ">
+        <img src="{{ app_url }}/images/eye.png" style="width: 20px" onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}') ">
         <button type="button" onclick="generatePassword('{{ registrationForm.plainPassword.vars.id }}')">Générer</button>
     </div>
 
