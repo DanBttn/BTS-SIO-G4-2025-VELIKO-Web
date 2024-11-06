@@ -3,6 +3,11 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block content %}
+
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+    <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn btn-primary">Retour</a>
+    <br><br>
+
     {{ form_start(profilForm) }}
 
     {# Uncomment each line to find the problematic field #}

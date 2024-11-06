@@ -4,21 +4,19 @@
 
 {% block content %}
 
-    <button type="button" class="btn btn-primary" ><a href="/profil" style="color:white "> Informations Personnelles</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href="/change/password" style="color:white ">Changer de mot de passe</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href=" /delete/profil" style="color:white ">Supprimer mon compte</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href=" /favori/{{ id_user }}" style="color:white ">Stations favoris</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-danger" ><a href=" /logout" style="color:white ">Se déconnecter</a></button>
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
 
-
-
-
+    <a href="/profil" class="btn btn-primary">Informations Personnelles</a>
+    <br>
+    <br>
+    <a href="/change/password" class="btn btn-primary">Changer de mot de passe</a>
+    <br>
+    <br>
+    <a href=" /delete/profil" class="btn btn-primary">Supprimer mon compte</a>
+    <br>
+    <br>
+    <a href="/favori/{{ id_user }}" class="btn btn-primary">Stations favoris</a>
+    <br>
+    <br>
+    <a href=" /logout" class="btn btn-danger">Se déconnecter</a>
 {% endblock %}

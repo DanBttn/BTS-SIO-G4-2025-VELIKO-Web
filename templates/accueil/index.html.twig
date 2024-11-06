@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block content %}
+    <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
 
     <div style="background-image: url('{{ asset('images/velos.png') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px; border-radius: 10px;">
 
         <div class="container my-5" >
 
             <div class="row justify-content-around mt-4">
-                <div class="col-md-5 bg-white p-4 rounded shadow-sm">
+                <div class="col-md-5 bg-white p-4 rounded shadow-sm ">
                     <h2>Objectif</h2>
                     <p>
                         Vous fournir des informations précises concernant la disponibilité des vélos
@@ -22,9 +23,9 @@
                 <div class="col-md-5 bg-white p-4 rounded shadow-sm">
                     <h2>Chiffres</h2>
                     <ul>
-                        <li>1 464 stations</li>
-                        <li>19 000 <span class="highlight">vélos</span>, dont 40% à <span class="highlight">assistance électrique</span></li>
-                        <li>390 000 abonnés en 2022</li>
+                        <li style="text-align: left">1 464 stations</li>
+                        <li style="text-align: left">19 000 <span style="color: #6cbb3e">vélos</span>, dont 40% à <span style="color: #07bfe1">assistance électrique</span></li>
+                        <li style="text-align: left">390 000 abonnés en 2022</li>
                     </ul>
                 </div>
             </div>
@@ -33,13 +34,14 @@
             <div class="row justify-content-around mt-4">
                 <div class="col-md-5 bg-white p-4 rounded shadow-sm text-center">
                     <h3>Déjà abonné.e ?</h3>
-                    <a href="/login" class="btn btn-success btn-lg">Connexion</a>
+                    <a href="/login" class="btn-success btn-lg button">Connexion</a>
                 </div>
-
                 <div class="col-md-5 bg-white p-4 rounded shadow-sm text-center">
                     <h3>Première fois sur Veliko ?</h3>
-                    <a href="/register" class="btn btn-success btn-lg">Inscription</a>
+                    <a href="/register" class="btn-success btn-lg button">Inscription</a>
                 </div>
+
+
             </div>
 
 

@@ -82,7 +82,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'rows' => 1
                 ],])
-            -> add('cp', TextareaType::class, [
+            -> add('code_postal', TextareaType::class, [
                 'label' => 'Code postal',
                 'attr' => [
                     'rows' => 1

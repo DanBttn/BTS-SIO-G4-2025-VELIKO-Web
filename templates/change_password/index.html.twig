@@ -3,24 +3,27 @@
 {% block title %}Change Password{% endblock %}
 
 {% block content %}
-    <h1>Changer votre mot de passe</h1>
+
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
 
     <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn btn-primary">Retour</a>
     <br><br>
 
+    <h1>Changer votre mot de passe</h1>
+
     {{ form_start(form) }}
     <div>
         {{ form_row(form.current_password) }}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
     </div>
     <div>
         {{ form_row(form.new_password) }}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
         <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" aria-label="Generate secure password">Générer mot de passe</button>
     </div>
     <div>
         {{ form_row(form.confirm_password) }}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
     </div>
 
     <button type="submit" class="btn btn-primary">Changer de mot de passe</button>

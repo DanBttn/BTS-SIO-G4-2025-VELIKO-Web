@@ -4,6 +4,9 @@
 
 {% block content %}
 
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+
+
     <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn btn-primary">Retour</a>
 
     <h1>Mes stations favorites</h1>

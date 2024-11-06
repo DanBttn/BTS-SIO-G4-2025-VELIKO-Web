@@ -4,6 +4,8 @@
 {% block title %}Inscription{% endblock %}
 
 {% block content %}
+
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
     <h1>Inscription</h1>
 
     {{ form_errors(registrationForm) }}
@@ -14,7 +16,7 @@
     {{ form_row(registrationForm.email) }}
     {{ form_row(registrationForm.date_naiss) }}
     {{ form_row(registrationForm.adresse) }}
-    {{ form_row(registrationForm.cp) }}
+    {{ form_row(registrationForm.code_postal) }}
     {{ form_row(registrationForm.ville) }}
 
     {# Password field with visibility toggle and password generator button #}
@@ -24,7 +26,7 @@
         }) }}
 
         {# Password visibility toggle #}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px; cursor: pointer;"
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;"
              onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}')">
 
         {# Password generator button #}
