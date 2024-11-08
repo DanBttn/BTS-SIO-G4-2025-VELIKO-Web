@@ -3,22 +3,16 @@
 {% block title %}Hello AccueilProfilController!{% endblock %}
 
 {% block content %}
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/accueil_profil.css') }}" rel="stylesheet">
 
-    <button type="button" class="btn btn-primary" ><a href="/profil" style="color:white "> Informations Personnelles</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href="/change/password" style="color:white ">Changer de mot de passe</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href=" /delete/profil" style="color:white ">Supprimer mon compte</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-primary" ><a href=" /favori/{{ id_user }}" style="color:white ">Stations favoris</a></button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-danger" ><a href=" /logout" style="color:white ">Se déconnecter</a></button>
-
-
-
-
+    <div class="profile-background">
+        <div class="container text-center">
+            <a href="/profil" class="btn btn-primary my-3">Informations Personnelles</a>
+            <a href="/change/password" class="btn btn-primary my-3">Changer de mot de passe</a>
+            <a href="/delete/profil" class="btn btn-primary my-3">Supprimer mon compte</a>
+            <a href="/favori/{{ id_user }}" class="btn btn-primary my-3">Stations favorites</a>
+            <a href="/logout" class="btn btn-danger my-3">Se déconnecter</a>
+        </div>
+    </div>
 {% endblock %}

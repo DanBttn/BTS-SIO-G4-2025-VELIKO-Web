@@ -12,9 +12,9 @@
 </head>
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/"><img src="/images/logoVeliko.png" style="width: 130px" alt="Logo Veliko"></a>
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="/images/logo_veliko.png" style="width: 100px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,7 +34,9 @@
                     </li>
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
-                            <a class="nav-link {% if app.request.get('_route') == 'app_accueil_profil' %}active{% endif %}" href="/accueil/profil">Mon compte</a>
+                            <a class="nav-link {% if app.request.get('_route') in ['app_accueil_profil', 'app_change_password', 'app_delete_profil', 'app_profil', 'app_favori', 'app_stations'] %}active{% endif %}" href="/accueil/profil">
+                                Mon compte
+                            </a>
                         </li>
                     {% endif %}
                 </ul>
@@ -42,46 +44,34 @@
         </div>
     </nav>
 
-
-
     {% block content %}{% endblock %}
 
     {% block footer %}
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container">
-                <div class="row justify-content-center mt-5">
-                    <div style="display: flex; justify-content: center;">
-                        <table>
-                            <tr>
-                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
-                                    <a href="https://instagram.com">
-                                        <img src="/images/instagram.png" alt="Instagram" class="mx-2"  style="color:white" >
-                                        <br> instagram
-                                    </a>
-                                </th>
-                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
-                                    <a href="https://facebook.com">
-                                        <img src="/images/facebook.png" alt="Facebook" class="mx-2">
-                                        <br> facebook
-                                    </a>
-                                </th>
-                                <th style="text-align: center; padding: 0 20px;"> <!-- Espace horizontal entre les colonnes -->
-                                    <a href="https://twitter.com">
-                                        <img src="/images/x.png" alt="Twitter" class="mx-2">
-                                        <br> x
-                                    </a>
-                                </th>
-                            </tr>
-                        </table>
-                    </div>
-                    <br><br> © 2024 Veliko. Tous droits réservés.
+        <footer class="footer">
+            <div class="row justify-content-center mt-5">
+                <div class="d-flex justify-content-center social-links">
+                    <a href="https://instagram.com" class="mx-3" aria-label="Instagram">
+                        <img src="/images/instagram.png" alt="Logo Instagram" style="width: 30px;">
+                        <br> Instagram
+                    </a>
+                    <a href="https://facebook.com" class="mx-3" aria-label="Facebook">
+                        <img src="/images/facebook.png" alt="Logo Facebook" style="width: 30px;">
+                        <br> Facebook
+                    </a>
+                    <a href="https://twitter.com" class="mx-3" aria-label="Twitter">
+                        <img src="/images/x.png" alt="Logo X (anciennement Twitter)" style="width: 30px;">
+                        <br> X
+                    </a>
                 </div>
-
-
+            </div>
+            <div class="text-center mt-4">
+                © 2024 Veliko. Tous droits réservés.
             </div>
         </footer>
+
     {% endblock %}
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

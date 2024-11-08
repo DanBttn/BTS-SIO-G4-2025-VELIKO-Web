@@ -120,4 +120,12 @@ class RegistrationController extends AbstractController
 
         return new Response('Token invalide ou expiré.', Response::HTTP_BAD_REQUEST);
     }
+
+    #[\Symfony\Component\Routing\Attribute\Route('/rgpd', name: 'app_rgpd')]
+    public function index(): Response
+    {
+        return $this->render('registration/rgpd.html.twig', [
+            'controller_name' => 'RGPDController',
+        ]);
+    }
 }

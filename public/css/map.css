@@ -1,0 +1,33 @@
+.leaflet-popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #333;
+    padding-left: 15px;
+    /*text-align: center; !* Centre le contenu *!*/
+}
+
+.leaflet-popup-content b {
+    color: #07bfe1;
+    font-size: 20px;
+    text-align: center;
+}
+
+
+
+#buttonFavori {
+    font-size: 13px;
+    color: #fff;
+    background-color: #ff9800;
+    border: none;
+    display: block;
+    margin: auto;
+    /*border-radius: 5px;*/
+    /*padding: 5px 10px;*/
+    /*padding-left: 15px;*/
+    /*cursor: pointer;*/
+    /*margin: 10px auto; !* Centre le bouton *!*/
+    /*display: block;*/
+    /*text-align: center;*/
+    height: 40px;
+    width: 140px;
+}

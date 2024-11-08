@@ -3,24 +3,30 @@
 {% block title %}Stations favoris{% endblock %}
 
 {% block content %}
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/stationFavoris.css') }}" rel="stylesheet">
 
     <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn btn-primary">Retour</a>
 
-    <h1>Mes stations favorites</h1>
-    <br>
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <h1 style="text-align: center">Mes stations favorites</h1>
+        <br>
 
 
-    {% for station in stations_fav %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ station.nom_station }}</h5>
-                <a href="{{ path('app_supp_favori', {'id_user': app.user.id, 'id_station': station.id_station }) }}" class="btn btn-danger">Supprimer</a>
+        {% for station in stations_fav %}
+            <div class="card mb-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">{{ station.nom_station }}</h5>
+                    <a href="{{ path('app_supp_favori', {'id_user': app.user.id, 'id_station': station.id_station }) }}" class="btn btn-danger">Supprimer</a>
+                </div>
             </div>
-        </div>
-    {% else %}
-        <div class="alert alert-warning">Vous n'avez pas encore de stations favorites</div>
-    {% endfor %}
+        {% else %}
+            <div class="alert alert-warning">Vous n'avez pas encore de stations favorites</div>
+        {% endfor %}
 
-    <a href="{{ path('app_stations') }}" class="btn btn-primary">Ajouter de nouvelles stations</a>
-
+        <a href="{{ path('app_stations') }}" class="btn btn-outline-primary">Ajouter de nouvelles stations</a>
+    </div>
 {% endblock %}

@@ -1,0 +1,92 @@
+/* profil.css */
+
+/* Container styles */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5); /* Augmente l'opacité pour un fond plus visible */
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Légère ombre pour effet de profondeur */
+}
+
+/* Form labels */
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+/* Form input fields */
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form input[type="number"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus,
+form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit button */
+form .btn {
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.5); /* Augmente l'opacité pour un fond plus visible */
+    color: #333;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease; /* Transition fluide */
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="date"],
+    form input[type="number"],
+    form textarea {
+        font-size: 14px;
+    }
+
+    form .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    button[type="submit"] {
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.5); /* Augmente l'opacité pour un fond plus visible */
+        color: #333;
+        border: 1px solid #ddd;
+    }
+}

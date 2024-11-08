@@ -1,27 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Réinitialisation de votre mot de passe</h1>
 
-    {{ form_start(form) }}
-    <div class="password-field">
-        {{ form_row(form.plainPassword, { label: 'Nouveau mot de passe' }) }}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px; cursor: pointer;"
-             onclick="togglePasswordVisibility('{{ form.plainPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
-        <button type="button" onclick="generatePassword('{{ form.plainPassword.vars.id }}', '{{ form.confirmPassword.vars.id }}')" aria-label="Generate secure password">Générer mot de passe</button>
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/resetPassword.css') }}" rel="stylesheet">
+    <div class="container">
+        <h1 style="text-align: center">Réinitialisation de votre mot de passe</h1>
+
+        {{ form_start(form) }}
+        <div class="password-field">
+            {{ form_row(form.plainPassword, { label: 'Nouveau mot de passe' }) }}
+            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;"
+                 onclick="togglePasswordVisibility('{{ form.plainPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
+            <button type="button" onclick="generatePassword('{{ form.plainPassword.vars.id }}', '{{ form.confirmPassword.vars.id }}')" aria-label="Generate secure password" class="generate-password-btn">Générer mot de passe</button>
+        </div>
+
+
+        <div class="password-field">
+            {{ form_row(form.confirmPassword, { label: 'Confirmez le mot de passe' }) }}
+            <img src="{{ asset('images/eye.png') }}" style="width: 16px; cursor: pointer; margin-left: 5px; vertical-align: middle;"
+                 onclick="togglePasswordVisibility('{{ form.confirmPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="display: block; margin: auto">Réinitialiser le mot de passe</button>
+        {{ form_end(form) }}
+
+        {# JavaScript for password field #}
+        <script src="{{ asset("js/generatePassword.js") }}">
+
+        </script>
     </div>
-
-    <div class="password-field">
-        {{ form_row(form.confirmPassword, { label: 'Confirmez le mot de passe' }) }}
-        <img src="{{ asset('images/eyes.png') }}" style="width: 20px; cursor: pointer;"
-             onclick="togglePasswordVisibility('{{ form.confirmPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Réinitialiser le mot de passe</button>
-    {{ form_end(form) }}
-
-    {# JavaScript for password field #}
-    <script src="{{ asset("js/generatePassword.js") }}">
-
-    </script>
 {% endblock %}

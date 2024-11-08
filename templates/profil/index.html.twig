@@ -3,21 +3,51 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block content %}
-    {{ form_start(profilForm) }}
+    <link rel="stylesheet" href="{{ asset("css/css.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/profil.css") }}">
 
-    {# Uncomment each line to find the problematic field #}
-    {{ form_row(profilForm.nom) }}
-    {{ form_row(profilForm.prenom) }}
-    {{ form_row(profilForm.date_naiss) }}
-    {{ form_row(profilForm.adresse) }}
-    {{ form_row(profilForm.code_postal) }}
-    {{ form_row(profilForm.ville) }}
+    <div class="background-container" style="background-image: url('{{ asset('images/paris-velo.jpg') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px; border-radius: 10px; position: relative;">
 
 
-    <button type="submit"  class="btn btn-primary"><a href="accueil/profil" style="color: white">Modifier</a></button>
+        <!-- Bouton "Retour" dans le coin supérieur gauche -->
+        <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn position-absolute top-0 start-0 m-3" style="z-index: 10;">Retour</a>
 
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
 
-    {{ form_end(profilForm) }}
+            <div class="d-flex justify-content-center">
+                <h1>Mes informations</h1>
+            </div>
+            <br>
+            {{ form_start(profilForm) }}
 
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.nom) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.prenom) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.date_naiss) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.adresse) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.code_postal) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(profilForm.ville) }}
+                </div>
+            </div>
 
+            <div class="d-flex justify-content-center">
+                <button type="submit" class=" btn btn-primary">Modifier</button>
+            </div>
+            {{ form_end(profilForm) }}
+        </div>
+    </div>
 {% endblock %}
