@@ -10,18 +10,18 @@ Sur un terminal git à l'endroit où vous souhaitez cloner le projet, faire la c
 git clone https://github.com/ort-montreuil/BTS-SIO-G4-2025-VELIKO-Web.git
 ```
 
-### Etape 2 : Installation des dépendances
+### Etape 2 : Configuration du projet
+
+Créer un fichier `.env` à la racine du projet et ajouter la configuration du projet.
+Prendre comme exemple le fichier `.env.example`
+
+### Etape 3 : Installation des dépendances
 
 Installation des dépendances avec composer (vendor).  
 A la racine du projet, faire la commande suivante :
 ```bash
 composer install
 ```
-
-### Etape 3 : Configuration du projet
-
-Créer un fichier `.env` à la racine du projet et ajouter la configuration du projet.
-Prendre comme exemple le fichier `.env.example`
 
 ### Etape 4 : Lancer la base de données (avec Docker)
 
