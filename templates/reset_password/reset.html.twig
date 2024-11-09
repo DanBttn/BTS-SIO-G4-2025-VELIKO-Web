@@ -11,16 +11,28 @@
         <br>
 
         {{ form_start(form) }}
-        <div>
+
         <label for="{{ form.plainPassword.vars.id }}">Nouveau mot de passe</label>
         <div class="password-container">
             {{ form_widget(form.plainPassword) }}
             <span class="eye-icon" onclick="togglePasswordVisibility('{{ form.plainPassword.vars.id }}')" aria-label="Toggle visibility for password">
-                <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
             </span>
         </div>
+
+        {# Ajout du bloc pour afficher les erreurs sous l'input #}
+        {% if form.plainPassword.vars.errors is not empty %}
+            <div class="invalid-feedback">
+                {% for error in form.plainPassword.vars.errors %}
+                    <p>{{ error.message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <button type="button" onclick="generatePassword('{{ form.plainPassword.vars.id }}', '{{ form.confirmPassword.vars.id }}')" aria-label="Generate secure password" class="generate-password-btn">Générer mot de passe</button>
-        </div>
+
+
+
         <br>
 
         <label for="{{ form.confirmPassword.vars.id }}">Confirmez le mot de passe</label>
