@@ -14,7 +14,7 @@ git clone git@github.com:ort-montreuil/BTS-SIO-G4-2025-VELIKO-Web.git
 
 Installation des dépendances avec composer (vendor).  
 A la racine du projet, faire la commande suivante :
-```
+```bash
 composer install
 ```
 
@@ -26,22 +26,23 @@ Prendre comme exemple le fichier `.env.example`
 ### Etape 4 : Lancer la base de données (avec Docker)
 
 A la racine du projet, faire la commande suivante :
-```
+```bash
 docker compose up -d
 ```
 ### Etape 5 : Implémenter la base de données
 
 A la racine du projet, faire la commande suivante :
-```
+```bash
 symfony console doctrine:migrations:migrate
 ```
 ### Etape 6 : Lancer le serveur
 
 A la racine du projet, faire la commande suivante :
-```
+```bash
 symfony serve
 ```
 Le terminal renverra l'adresse du serveur local pour accéder au projet.
+
 
 
 ### Lien notion pour les issues :
