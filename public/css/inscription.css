@@ -1,0 +1,124 @@
+/* profil.css */
+
+/* Container styles */
+.container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form labels */
+form label {
+    font-weight: bold;
+    margin-bottom: 4px; /* Moins d'espace sous les labels */
+    font-size: 18px;
+}
+
+/* Form input fields */
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form input[type="number"],
+form text {
+    width: 100%;
+    padding: 8px; /* Réduction du padding des champs */
+    margin-bottom: 8px; /* Moins d'espace entre les champs */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus,
+form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit button */
+form .btn {
+    color: black;
+    padding: 10px 15px;
+    font-size: 17px;
+    border-color: black;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /*display: inline-block;*/
+    width: 120px;
+    height: 40px;
+    display: flex; /* Utilisation de flexbox pour le centrage */
+    justify-content: center; /* Centrage horizontal */
+    align-items: center; /* Centrage vertical */
+    text-align: center; /* S'assurer que le texte est centré */
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    border: 1px solid #ddd;
+}
+
+.password-field {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espace réduit entre l'input et le bouton "Générer" */
+}
+
+.password-field input[type="password"] {
+    flex-grow: 1;
+    padding: 8px;
+    margin-bottom: 8px; /* Réduction de l'espace sous le champ de mot de passe */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.password-field .btn-generate {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    margin-top: 12px;
+}
+
+.password-field .btn-generate:hover {
+    background-color: #e0e0e0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="date"],
+    form input[type="number"],
+    form textarea {
+        font-size: 14px;
+    }
+
+    form .btn {
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+}

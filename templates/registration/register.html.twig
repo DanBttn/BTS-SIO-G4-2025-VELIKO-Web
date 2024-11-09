@@ -4,38 +4,70 @@
 {% block title %}Inscription{% endblock %}
 
 {% block content %}
-
     <link href="{{ asset('css/css.css') }}" rel="stylesheet">
-    <h1>Inscription</h1>
+    <link href="{{ asset('css/inscription.css') }}" rel="stylesheet">
 
-    {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.nom) }}
-    {{ form_row(registrationForm.prenom) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.date_naiss) }}
-    {{ form_row(registrationForm.adresse) }}
-    {{ form_row(registrationForm.code_postal) }}
-    {{ form_row(registrationForm.ville) }}
+    <div class="background-container" style="background-image: url('{{ asset('images/inscription-background.webp') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px; border-radius: 10px; position: relative;">
 
-    {# Password field with visibility toggle and password generator button #}
-    <div class="password-field">
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe',
-        }) }}
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h1 style="text-align: center; font-size: 35px">Inscription</h1>
+            </div>
+            <br>
 
-        {# Password visibility toggle #}
-        <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;"
-             onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}')">
+            {{ form_errors(registrationForm) }}
 
-        {# Password generator button #}
-        <button type="button" onclick="generatePassword('{{ registrationForm.plainPassword.vars.id }}')">Générer</button>
+            {{ form_start(registrationForm) }}
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.nom) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.prenom) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.date_naiss) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.adresse) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.code_postal) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form_row(registrationForm.ville) }}
+                </div>
+
+                {# Password field with visibility toggle and password generator button #}
+                <div class="col-md-6 mb-3">
+                    <div class="password-field">
+                        {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
+
+                        <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer; margin-top: 12px;"
+                             onclick="togglePasswordVisibility('{{ registrationForm.plainPassword.vars.id }}')">
+
+                        <button type="button" onclick="generatePassword('{{ registrationForm.plainPassword.vars.id }}')" class="btn-generate">Générer</button>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    {{ form_row(registrationForm.agreeTerms) }}
+                </div>
+
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
     </div>
-
-    {{ form_row(registrationForm.agreeTerms) }}
-    <button type="submit" class="btn btn-primary">S'inscrire</button>
-    {{ form_end(registrationForm) }}
 
     {# JavaScript for password field #}
     <script src="{{ asset("js/generatePassword.js") }}">
