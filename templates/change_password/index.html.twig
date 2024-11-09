@@ -11,46 +11,47 @@
         <a href="{{ path('app_accueil_profil', {'id_user': app.user.id }) }}" class="btn position-absolute top-0 start-0 m-3" style="z-index: 10;">Retour</a>
 
         <div class="container">
+
+            <div aria-live="polite">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            </div>
+
             <div class="d-flex justify-content-center">
                 <h1>Changer mon mot de passe</h1>
             </div>
             <br>
 
             {{ form_start(form) }}
-            <div class="form-group">
+            <div>
                 <label for="{{ form.current_password.vars.id }}">Mot de passe actuel</label>
-                <div class="input-group">
-                    {{ form_widget(form.current_password, {'attr': {'class': 'form-control'}}) }}
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
-                        </span>
-                    </div>
+                <div class="password-container">
+                {{ form_widget(form.current_password, {'attr': {'class': 'form-control'}}) }}
+              <span  class="eye-icon" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
+                <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
+            </span>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div>
                 <label for="{{ form.new_password.vars.id }}">Nouveau mot de passe</label>
-                <div class="input-group">
+                <div class="password-container">
                     {{ form_widget(form.new_password, {'attr': {'class': 'form-control'}}) }}
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
+                        <span  class="eye-icon" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for current password">
+                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
                         </span>
-                    </div>
                 </div>
                 <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" class="btn btn-secondary btn-sm" aria-label="Generate secure password">Générer mot de passe</button>
             </div>
 
-            <div class="form-group">
+            <div>
                 <label for="{{ form.confirm_password.vars.id }}">Confirmer le mot de passe</label>
-                <div class="input-group">
+                <div class="password-container">
                     {{ form_widget(form.confirm_password, {'attr': {'class': 'form-control'}}) }}
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
+                        <span  class="eye-icon" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for current password">
+                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
                         </span>
-                    </div>
                 </div>
             </div>
             <br>
@@ -58,11 +59,9 @@
                 <button type="submit" class="btn btn-primary">Modifier</button>
             </div>
             {{ form_end(form) }}
+            <br>
 
             <div aria-live="polite">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">{{ message }}</div>
-                {% endfor %}
                 {% for message in app.flashes('error') %}
                     <div class="alert alert-danger">{{ message }}</div>
                 {% endfor %}
