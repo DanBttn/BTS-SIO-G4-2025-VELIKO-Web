@@ -43,11 +43,13 @@ symfony serve
 ```
 Le terminal renverra l'adresse du serveur local pour accéder au projet.
 
-### Etape 7 : Arrêter les images docker 
+## Fermeture du projet
+
+### Etape 1 : Arrêter les images docker 
 ``` bash
 docker compose down 
 ```
-### Etape 8 : Arrêter le serveur 
+### Etape 2 : Arrêter le serveur 
 ``` bash
 symfony console server:stop 
 ```
