@@ -45,7 +45,7 @@ class ChangePasswordController extends AbstractController
                     $this->addFlash('error', 'Le nouveau mot de passe et sa confirmation ne correspondent pas.');
                 }
             } else {
-                $this->addFlash('error', "L'ancien mot de passe est incorrect .");
+                $this->addFlash('error', "L'ancien mot de passe est incorrect.");
             }
         }
 
