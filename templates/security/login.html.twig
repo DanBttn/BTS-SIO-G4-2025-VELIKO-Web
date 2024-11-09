@@ -17,6 +17,10 @@
                     </div>
                 {% endfor %}
 
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
                 {% if app.user %}
                     <div class="mb-3" style="text-align: center">
                         Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -42,9 +46,6 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <p><a href="/reset/password">Mot de passe oublié ?</a></p>
 
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
 
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary" style="border-color: black">Se connecter</button>
