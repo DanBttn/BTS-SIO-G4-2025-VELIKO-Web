@@ -42,7 +42,7 @@ class ChangePasswordController extends AbstractController
                     // Ajouter un message de succès
                     $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
                 } else {
-                    $this->addFlash('error', 'Le nouveau mot de passe est invalide.');
+                    $this->addFlash('error', 'Le nouveau mot de passe et sa confirmation ne correspondent pas.');
                 }
             } else {
                 $this->addFlash('error', "L'ancien mot de passe est incorrect .");
