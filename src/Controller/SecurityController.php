@@ -70,7 +70,7 @@ class SecurityController extends AbstractController
                     ->from($_ENV['MAILER_FROM_ADDRESS'])
                     ->to($user->getEmail())
                     ->subject('Réinitialisation de mot de passe')
-                    ->html("<p>Pour réinitialiser votre mot de passe, cliquez sur ce lien : <a href='" . $_ENV['APP_URL'] . $resetUrl . "'>" . $resetUrl . "</a></p>");
+                    ->html("<p>Pour réinitialiser votre mot de passe, cliquez sur ce lien : <a href='" . $_ENV['APP_URL'] . $resetUrl . "'>" . 'rénitialiser mon mot de passe' . "</a></p>");
 
                 $mailer->send($emailMessage);
 
@@ -117,7 +117,8 @@ class SecurityController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès.');
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès.');;
+
             return $this->redirectToRoute('app_login');
         }
 
