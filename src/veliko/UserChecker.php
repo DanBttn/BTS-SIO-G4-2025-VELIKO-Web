@@ -15,7 +15,7 @@ class UserChecker implements UserCheckerInterface
         }
         if (!$user->isVerified()) {
             throw new CustomUserMessageAuthenticationException(
-                'ton compte n\'est pas encore vérifié, veuillez vérifier votre boîte mail.'
+                'Votre compte n\'est pas encore vérifié, veuillez vérifier votre boîte mail.'
             );
         }
     }
