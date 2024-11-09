@@ -27,22 +27,27 @@ class ChangePasswordController extends AbstractController
 
             // Vérifier que le mot de passe actuel est correct
             if ($passwordHasher->isPasswordValid($user, $currentPassword)) {
-                // Vérifier si le nouveau mot de passe et la confirmation correspondent
-                if ($newPassword === $confirmPassword) {
-                    // Hacher le nouveau mot de passe
-                    $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+                // Vérifier que le nouveau mot de passe n'est pas le même que l'ancien
+                if ($currentPassword !== $newPassword) {
+                    // Vérifier si le nouveau mot de passe et la confirmation correspondent
+                    if ($newPassword === $confirmPassword) {
+                        // Hacher le nouveau mot de passe
+                        $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
 
-                    // Mettre à jour l'utilisateur avec le nouveau mot de passe
-                    $user->setPassword($hashedPassword);
+                        // Mettre à jour l'utilisateur avec le nouveau mot de passe
+                        $user->setPassword($hashedPassword);
 
-                    // Sauvegarder l'utilisateur dans la base de données
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                        // Sauvegarder l'utilisateur dans la base de données
+                        $entityManager->persist($user);
+                        $entityManager->flush();
 
-                    // Ajouter un message de succès
-                    $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
+                        // Ajouter un message de succès
+                        $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
+                    } else {
+                        $this->addFlash('error', 'Le nouveau mot de passe et sa confirmation ne correspondent pas.');
+                    }
                 } else {
-                    $this->addFlash('error', 'Le nouveau mot de passe et sa confirmation ne correspondent pas.');
+                    $this->addFlash('error', "Le nouveau mot de passe ne peut pas être le même que l'ancien.");
                 }
             } else {
                 $this->addFlash('error', "L'ancien mot de passe est incorrect.");
