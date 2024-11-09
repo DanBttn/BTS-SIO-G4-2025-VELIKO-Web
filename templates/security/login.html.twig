@@ -3,7 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ asset("css/css.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/css.css") }}" xmlns="http://www.w3.org/1999/html">
     <link rel="stylesheet" href="{{ asset("css/login.css") }}">
     <div style="background-image: url('{{ asset('images/login-background.jpg') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px; border-radius: 10px;">
         <div class="container">
@@ -23,20 +23,21 @@
                     </div>
                 {% endif %}
 
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center;"><b>Connexion</b></h1>
+                <h1 style="text-align: center; font-size: 35px">Connexion</h1>
                 <label for="username">Email</label>
                 <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
                 <br>
 
                 <label for="password">Mot de passe</label>
-                <div class="input-group">
+                <div class="password-container">
                     <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-                    <div class="input-group-append">
-                <span class="input-group-text">
-                    <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('password')" aria-label="Toggle visibility for password">
-                </span>
-                    </div>
+                    <span class="eye-icon" onclick="togglePasswordVisibility('password')" aria-label="Toggle visibility for password">
+        <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;">
+    </span>
                 </div>
+
+
+
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <p><a href="/reset/password">Mot de passe oublié ?</a></p>
