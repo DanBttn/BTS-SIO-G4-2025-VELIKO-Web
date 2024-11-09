@@ -25,14 +25,15 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les termes et conditions',
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+        'label' => 'Accepter les termes et <a href="/rgpd" target="_blank">conditions</a>',
+        'label_html' => true,  // Permet le HTML dans le label
+        'mapped' => false,
+        'constraints' => [
+            new IsTrue([
+                'message' => 'Vous devez accepter les termes.',
+            ]),
+        ],
+    ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

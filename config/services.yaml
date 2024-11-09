@@ -5,10 +5,12 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app_url: '%env(APP_URL)%'
+    MAILER_FROM_ADDRESS: '%env(MAILER_FROM_ADDRESS)%'
 
 twig:
     globals:
         app_url: '%app_url%'
+        mailer_from_address: '%MAILER_FROM_ADDRESS%'
 
 services:
     # default configuration for services in *this* file
