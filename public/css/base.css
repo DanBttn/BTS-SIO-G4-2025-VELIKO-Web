@@ -1,83 +1,18 @@
 body {
-    font-family: Didot, serif;
-    background-color: white!important;
-    font-size: larger;
-}
-
-footer {
-    background-color: white!important;
-}
-
-/* Style général de la barre de navigation */
-.navbar {
-    /*background-image: url('../images/arriere-navbar.jpg') !important;*/
-    background-color: white !important;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-position: center -500px; /* Décale l'image de 20px vers le haut */
-    background-size: cover;
+    background-color: #fafafa;
 }
 
 
-/* Logo */
-.navbar-brand img {
-    width: 130px;
-    transition: transform 0.3s ease;
-    margin-left:10px ;
-}
-
-.navbar-brand img:hover {
-    transform: scale(1.1); /* Effet de zoom au survol */
-}
-
-/* Liens de la navbar */
+/* Style des liens de la navbar */
 .navbar-nav .nav-link {
-    color: #6cbb3e; /* Couleur verte pour les liens */
-    font-weight: 500;
-    padding: 8px 15px;
-    transition: color 0.3s, background-color 0.3s;
-    border-radius: 5px;
-    margin: 0px 10px;
+    color: #6cbb3e; /* couleur par défaut des liens */
+    transition: color 0.3s ease;
 }
 
-/* Couleur et style lorsque le lien est actif */
+/* Lorsque le lien est cliqué et devient actif */
 .navbar-nav .nav-link.active {
-    color: #07bfe1; /* Bleu pour le lien actif */
-    transform: scale(1.1); /* Effet de zoom */
+    color: #07bfe1;
 }
-
-/* Effet au survol des liens */
-.navbar-nav .nav-link:hover {
-    transform: scale(1.1);
-}
-
-/* Style du bouton hamburger (mode mobile) */
-.navbar-toggler {
-    border-color: #07bfe1;
-}
-
-
-
-/* Transition fluide lors de l'ouverture et de la fermeture */
-.collapse.navbar-collapse {
-    transition: height 0.5s ease;
-}
-
-/* Centre la barre de navigation */
-.navbar .container-fluid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15%;
-}
-
-/* Garde le logo à gauche */
-.navbar .navbar-brand {
-    margin-right: auto; /* Permet au logo de rester à gauche */
-}
-
 
 h1, h2, h3 {
     color: #333;
@@ -99,42 +34,6 @@ h1, h2, h3 {
 
 a img {
     width: 40px;
-}
-.footer {
-    background-color: #ffffff; /* Fond blanc */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    color: #35424a; /* Texte en gris foncé pour un bon contraste */
-}
-
-.social-links a {
-    text-decoration: none; /* Retirer le soulignement */
-    color: #35424a; /* Texte en gris foncé */
-    flex-direction: column; /* Empiler l'icône et le texte verticalement */
-    align-items: center; /* Centrer le contenu */
-}
-
-.social-links img {
-    width: 30px;
-    height: 30px; /* Garder une forme carrée pour les icônes */
-    margin-bottom: 5px; /* Espacement entre l'icône et le texte */
-}
-
-/* Adaptation pour les écrans plus petits */
-@media (max-width: 768px) {
-    .footer {
-        padding: 15px;
-    }
-
-    .social-links {
-        flex-direction: row; /* Changer en disposition horizontale pour les petits écrans */
-    }
-
-    .social-links a {
-        margin-bottom: 0; /* Supprimer la marge verticale */
-        margin-right: 15px; /* Espacement entre les icônes sur une ligne */
-    }
 }
 
 

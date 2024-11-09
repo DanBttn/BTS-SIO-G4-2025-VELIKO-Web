@@ -72,9 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull]
     #[Assert\NotBlank(message: 'Veuillez entrer votre code postal')]
     #[Assert\Regex(
-        pattern: '/[0-9]{5}/',
+        pattern: '/[0-9]{5}$/',
         message: 'Veuillez entrer un code postal valide'
     )]
+    #[Assert\Length(min: 5, max: 5)]
     private ?string $code_postal = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

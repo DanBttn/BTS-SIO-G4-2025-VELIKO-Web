@@ -42,3 +42,7 @@ A la racine du projet, faire la commande suivante :
 symfony serve
 ```
 Le terminal renverra l'adresse du serveur local pour accéder au projet.
+
+
+### Lien notion pour les issues :
+https://www.notion.so/Issues-cb3fd228281c415799af3aac9261dad4?pvs=4
