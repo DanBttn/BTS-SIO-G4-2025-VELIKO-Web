@@ -7,7 +7,7 @@
 Sur un terminal git à l'endroit où vous souhaitez cloner le projet, faire la commande suivante  :
 
 ```
-git clone git@github.com:ort-montreuil/BTS-SIO-G4-2025-VELIKO-Web.git
+git clone https://github.com/ort-montreuil/BTS-SIO-G4-2025-VELIKO-Web.git
 ```
 
 ### Etape 2 : Installation des dépendances
