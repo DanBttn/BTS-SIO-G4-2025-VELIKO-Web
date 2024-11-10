@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,10 +23,7 @@ class ProfilFormType extends AbstractType
                 'format' => 'yyyy-MM-dd'])
             ->add('adresse')
             -> add('code_postal', TextType::class, [
-                'label' => 'Code postal',
-                'attr' => [
-                    'rows' => 1
-                ],])
+                'label' => 'Code postal'])
             ->add('ville')
 
         ;
