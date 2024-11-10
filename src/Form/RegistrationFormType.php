@@ -67,10 +67,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('nom', TextType::class, [
-                'label' => 'Nom',
-                'attr' => [
-                    'rows' => 1
-                ],])
+                'label' => 'Nom'])
             -> add('date_naiss', DateType::class, [
                 'label' => 'Date de naissance',
                 'widget' => 'single_text', // Option pour un champ de saisie unique (calendrier)
@@ -78,26 +75,13 @@ class RegistrationFormType extends AbstractType
 
             ])
             -> add('adresse', TextType::class, [
-                'label' => 'Adresse',
-                'attr' => [
-                    'rows' => 1
-                ],])
+                'label' => 'Adresse'])
             -> add('code_postal', TextType::class, [
-                'label' => 'Code postal',
-                'attr' => [
-                    'rows' => 1
-                ],])
+                'label' => 'Code postal'])
             ->add('ville', TextType::class, [
-                'label' => 'Ville de résidence',
-                'attr' => [
-                    'rows' => 1
-                ],])
+                'label' => 'Ville de résidence'])
             ->add('prenom', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => [
-                    'rows' => 1
-                ],
-            ]);
+                'label' => 'Prénom']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
