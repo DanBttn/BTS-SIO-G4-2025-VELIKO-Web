@@ -3,8 +3,14 @@
 {% block content %}
     <link href="{{ asset('css/css.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stationFavoris.css') }}" rel="stylesheet">
+    <br>
     <div class="container">
         <br>
+        <div aria-live="polite">
+            {% for message in app.flashes('danger') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </div>
         <h1 style="text-align: center">Demande de réinitialisation de mot de passe</h1>
 
         {{ form_start(requestForm) }}
