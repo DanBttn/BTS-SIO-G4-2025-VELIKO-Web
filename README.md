@@ -51,7 +51,7 @@ docker compose down
 ```
 ### Etape 2 : Arrêter le serveur 
 ``` bash
-symfony console server:stop 
+symfony server:stop 
 ```
 
 
