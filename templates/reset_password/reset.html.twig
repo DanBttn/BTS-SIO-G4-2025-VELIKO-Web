@@ -7,6 +7,11 @@
     <img src="{{ asset('images/logoVeliko.png') }}" style="position: absolute; top: 10px; left: 10px; height: 100px; width: 150px;">
 
     <div class="container">
+        <div aria-live="polite">
+            {% for message in app.flashes('danger') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </div>
         <h1 style="text-align: center; font-size: 35px">Réinitialisation de votre mot de passe</h1>
         <br>
 
