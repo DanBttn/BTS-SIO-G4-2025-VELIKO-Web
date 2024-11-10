@@ -73,13 +73,8 @@
             {{ form_end(form) }}
             <br>
 
-            <div aria-live="polite">
-                {% for message in app.flashes('error') %}
-                    <div class="alert alert-danger">{{ message }}</div>
-                {% endfor %}
-            </div>
-            <script src="{{ asset('js/generatePassword.js') }}"></script>
 
+            <script src="{{ asset('js/generatePassword.js') }}"></script>
         </div>
     </div>
 {% endblock %}
