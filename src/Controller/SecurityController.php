@@ -26,10 +26,17 @@ class SecurityController extends AbstractController
         // Check if the user is already logged in
         $user = $this->getUser();
 
-        // Get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+
+
         // Get the last entered username
         $lastUsername = $authenticationUtils->getLastUsername();
+
+        if ($lastUsername && !$entityManager->getRepository(User::class)->findOneBy(['email' => $lastUsername])) {
+            $this->addFlash('danger', 'Aucun compte n\'est associé à cette adresse mail');
+        }
+
+        // Get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
 
         // Render the login form
         return $this->render('security/login.html.twig', [
