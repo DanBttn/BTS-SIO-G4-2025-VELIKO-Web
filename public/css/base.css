@@ -6,6 +6,12 @@ body {
 
 footer {
     background-color: white!important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
 }
 
 /* Barre de navigation épaisse avec animation */
@@ -113,4 +119,35 @@ footer {
 /* Cacher le lien tout en réservant l'espace */
 .nav-item.invisible {
     visibility: hidden; /* Cacher sans supprimer l'espace occupé */
+}
+
+
+.footer .social-links .social-item {
+    text-align: center; /* Centrer le texte sous chaque icône */
+}
+
+/* Centrer les liens sociaux */
+.footer .social-links {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+/* Ajuste la taille des icônes sociales */
+.footer .social-links .social-icon {
+    width: 35px;
+    height: 35px;
+}
+
+.footer .social-links a {
+    color: #333; /* Couleur du texte des liens */
+    text-decoration: none;
+    font-size: 18px; /* Taille de police du texte sous les icônes */
+    margin-top: 5px; /* Espacement entre l'image et le texte */
+    transition: color 0.3s; /* Animation de transition pour le survol */
+}
+
+.footer .social-links a:hover {
+    color: #07bfe1; /* Couleur au survol */
+    transform: scale(1.1); /* Effet de zoom au survol */
 }
