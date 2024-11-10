@@ -11,17 +11,6 @@ body {
 
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-}
-
-.navbar .logo {
-    width: 150px;
-}
 
 .menu {
     display: flex;

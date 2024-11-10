@@ -12,37 +12,52 @@
 </head>
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/"><img src="/images/logoVeliko.png" style="width: 130px" alt="Logo Veliko"></a>
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Logo à gauche -->
+        <a class="navbar-brand" href="/">
+            <img src="../images/logoVeliko.png" alt="Logo" style="height: 70px;">
+        </a>
+
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+            <!-- Onglets principaux au centre -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route') == 'app_accueil' %}active{% endif %}" href="/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route') == 'app_map' %}active{% endif %}" href="/map">Carte des stations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="/login">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route') == 'app_register' %}active{% endif %}" href="/register">Inscription</a>
+                </li>
+            </ul>
+
+            <!-- Espace réservé pour "Mon compte" à droite -->
+            <ul class="navbar-nav ms-auto fixed-right">
+                {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route') == 'app_accueil' %}active{% endif %}" href="/">Accueil</a>
+                        <a class="nav-link {% if app.request.get('_route') in ['app_accueil_profil', 'app_change_password', 'app_delete_profil', 'app_profil', 'app_favori', 'app_stations'] %}active{% endif %}" href="/accueil/profil">
+                            Mon compte
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route') == 'app_map' %}active{% endif %}" href="/map">Carte des stations</a>
+                {% else %}
+                    <!-- Lien caché mais présent pour réserver l'espace -->
+                    <li class="nav-item invisible">
+                        <a class="nav-link">Mon compte</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="/login">Connexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route') == 'app_register' %}active{% endif %}" href="/register">Inscription</a>
-                    </li>
-                    {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if app.request.get('_route') in ['app_accueil_profil', 'app_change_password', 'app_delete_profil', 'app_profil', 'app_favori', 'app_stations'] %}active{% endif %}" href="/accueil/profil">
-                                Mon compte
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
         </div>
     </nav>
+
+
+
+
+
+
 
     {% block content %}{% endblock %}
 

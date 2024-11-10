@@ -8,134 +8,109 @@ footer {
     background-color: white!important;
 }
 
-/* Style général de la barre de navigation */
+/* Barre de navigation épaisse avec animation */
 .navbar {
-    /*background-image: url('../images/arriere-navbar.jpg') !important;*/
-    background-color: white !important;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-position: center -500px; /* Décale l'image de 20px vers le haut */
-    background-size: cover;
+    background-color: white!important; /* Fond clair */
+    padding: 20px 30px; /* Hauteur plus grande */
+    border-bottom: 2px solid #ddd; /* Bordure fine en bas */
+    transition: background-color 0.3s ease-in-out; /* Transition douce sur le fond */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour la profondeur */
 }
 
 
+/* Liens du menu */
+.nav-link {
+    color: #333; /* Couleur du texte neutre */
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 15px; /* Espacement des liens */
+    position: relative;
+    transition: color 0.3s, transform 0.3s; /* Animation de changement de couleur et d'agrandissement */
+}
+
+/* Liens actifs */
+.nav-link.active {
+    color: #07bfe1 !important; /* Bleu pour les liens actifs */
+    font-weight: bold; /* Accent sur le lien actif avec une graisse de police plus forte */
+    background-color: #f4f4f4; /* Fond clair pour différencier les liens actifs */
+    border-radius: 5px; /* Coins arrondis pour un effet plus doux */
+    padding: 5px 10px; /* Espace autour du texte pour un bouton plus visible */
+}
+
+/* Survol des liens */
+.nav-link:hover {
+    color: #07bfe1; /* Bleu logo au survol */
+    transform: scale(1.1); /* Agrandissement doux des liens */
+}
+
+/* Animation au survol des liens */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #6cbb3e; /* Barre verte sous les liens */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+/* Ajout de l'animation sous les liens lorsqu'ils sont survolés */
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Espacement automatique des éléments pour aligner à droite */
+.ml-auto {
+    margin-left: auto;
+}
+
+/* Menu mobile - fond plus clair */
+.navbar-light .navbar-toggler-icon {
+    background-color: #6cbb3e; /* Vert pour l'icône du menu mobile */
+}
+
+/* Réactif : Menu mobile avec fond clair et boutons alignés à droite */
+@media (max-width: 992px) {
+    .navbar-nav {
+        text-align: right;
+    }
+}
+
 /* Logo */
 .navbar-brand img {
-    width: 130px;
+    /*width: 130px;*/
     transition: transform 0.3s ease;
-    margin-left:10px ;
+    /*margin-left:10px ;*/
 }
 
 .navbar-brand img:hover {
     transform: scale(1.1); /* Effet de zoom au survol */
 }
 
-/* Liens de la navbar */
-.navbar-nav .nav-link {
-    color: #6cbb3e; /* Couleur verte pour les liens */
-    font-weight: 500;
-    padding: 8px 15px;
-    transition: color 0.3s, background-color 0.3s;
-    border-radius: 5px;
-    margin: 0px 10px;
-}
-
-/* Couleur et style lorsque le lien est actif */
-.navbar-nav .nav-link.active {
-    color: #07bfe1; /* Bleu pour le lien actif */
-    transform: scale(1.1); /* Effet de zoom */
-}
-
-/* Effet au survol des liens */
-.navbar-nav .nav-link:hover {
-    transform: scale(1.1);
-}
-
-/* Style du bouton hamburger (mode mobile) */
-.navbar-toggler {
-    border-color: #07bfe1;
-}
-
-
-
-/* Transition fluide lors de l'ouverture et de la fermeture */
-.collapse.navbar-collapse {
-    transition: height 0.5s ease;
-}
-
-/* Centre la barre de navigation */
-.navbar .container-fluid {
+/* Centrer les liens principaux */
+.navbar-nav.mx-auto {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15%;
+    justify-content: center; /* Centre les boutons principaux */
+    flex: 1; /* Prend tout l'espace possible pour rester au centre */
 }
 
-/* Garde le logo à gauche */
-.navbar .navbar-brand {
-    margin-right: auto; /* Permet au logo de rester à gauche */
+/* Réserve l'espace pour "Mon compte" */
+.navbar-nav.ms-auto.fixed-right {
+    width: 160px; /* Largeur réservée pour "Mon compte" */
+    display: flex;
+    justify-content: flex-end;
 }
 
-
-h1, h2, h3 {
-    color: #333;
+/* Placer "Mon compte" à droite */
+.navbar-nav.ms-auto {
+    margin-left: auto; /* Pousse "Mon compte" vers la droite */
 }
 
-.highlight {
-    color: #07bfe1;
+/* Cacher le lien tout en réservant l'espace */
+.nav-item.invisible {
+    visibility: hidden; /* Cacher sans supprimer l'espace occupé */
 }
-
-/* Additional button styling if needed */
-.btn-success {
-    background-color: #d4edda;
-    color: #333;
-}
-
-.btn-success:hover {
-    background-color: #c3e6cb;
-}
-
-a img {
-    width: 40px;
-}
-.footer {
-    background-color: #ffffff; /* Fond blanc */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    color: #35424a; /* Texte en gris foncé pour un bon contraste */
-}
-
-.social-links a {
-    text-decoration: none; /* Retirer le soulignement */
-    color: #35424a; /* Texte en gris foncé */
-    flex-direction: column; /* Empiler l'icône et le texte verticalement */
-    align-items: center; /* Centrer le contenu */
-}
-
-.social-links img {
-    width: 30px;
-    height: 30px; /* Garder une forme carrée pour les icônes */
-    margin-bottom: 5px; /* Espacement entre l'icône et le texte */
-}
-
-/* Adaptation pour les écrans plus petits */
-@media (max-width: 768px) {
-    .footer {
-        padding: 15px;
-    }
-
-    .social-links {
-        flex-direction: row; /* Changer en disposition horizontale pour les petits écrans */
-    }
-
-    .social-links a {
-        margin-bottom: 0; /* Supprimer la marge verticale */
-        margin-right: 15px; /* Espacement entre les icônes sur une ligne */
-    }
-}
-
-
-
