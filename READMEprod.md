@@ -10,7 +10,7 @@ prenant comme exemple le fichier `.env.example`.
 Modifier les variables d'environnement pour la production :   
 APP_ENV=prod   
 APP_DEBUG=0  
-DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database_name>?serverVersion=mariadb-<version>"
+DATABASE_URL="mysql://[username]:[password]@[host]:[port]/[database_name]?serverVersion=mariadb-[version]"
 
 
 ### Etape 2 : Installation des dépendances
