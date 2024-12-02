@@ -31,3 +31,79 @@
     height: 40px;
     width: 140px;
 }
+.reservation-panel {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Panneau caché au départ */
+    width: 400px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.reservation-panel.active {
+    right: 0; /* Affiche le panneau */
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+.search-results {
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-result-item:hover {
+    background-color: #f1f1f1;
+}
+
+.no-results {
+    padding: 10px;
+    color: #888;
+}
+
+input:focus:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+
