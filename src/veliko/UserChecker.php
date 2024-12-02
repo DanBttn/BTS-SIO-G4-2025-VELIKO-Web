@@ -15,9 +15,15 @@ class UserChecker implements UserCheckerInterface
         }
         if (!$user->isVerified()) {
             throw new CustomUserMessageAuthenticationException(
-                'Votre compte n\'est pas encore vérifié, veuillez vérifier votre boîte mail.'
+                'ton compte n\'est pas encore vérifié, veuillez vérifier votre boîte mail.'
             );
         }
+        if ($user->IsBlocked()) {
+            throw new CustomUserMessageAuthenticationException(
+                'ton compte est bloqué, veuillez contacter l\'administrateur.'
+            );
+        }
+
     }
     public function checkPostAuth(UserInterface $user): void
     {

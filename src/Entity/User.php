@@ -87,6 +87,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isVerified = false;
 
+    #[ORM\Column]
+    private ?bool $isBlocked = null;
+
+    #[ORM\Column]
+    private ?bool $renouvelerMdp = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -253,6 +259,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isBlocked(): ?bool
+    {
+        return $this->isBlocked;
+    }
+
+    public function setBlocked(bool $isBlocked): static
+    {
+        $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    public function isRenouvelerMdp(): ?bool
+    {
+        return $this->renouvelerMdp;
+    }
+
+    public function setRenouvelerMdp(bool $renouvelerMdp): static
+    {
+        $this->renouvelerMdp = $renouvelerMdp;
 
         return $this;
     }
