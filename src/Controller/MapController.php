@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
 use App\Entity\StationFavori;
 use App\veliko\Api;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,6 +75,48 @@ class MapController extends AbstractController
                 "stations" => $stations
             ]
         );
+    }
+
+    #[Route('/reservation', name: 'app_reservation', methods: ['GET', 'POST'])]
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Vérifier si l'utilisateur est connecté
+        $user = $this->getUser();
+
+        // Récupérer les données du formulaire
+        $stationDep = $request->request->get('departure');
+        $stationFin = $request->request->get('destination');
+
+        // Valider les données
+        if (empty($stationDep) || empty($stationFin)) {
+            $this->addFlash('error', 'Veuillez remplir tous les champs.');
+        }
+        else if ($stationDep === $stationFin) {
+            $this->addFlash('error', 'La station de départ et la station de destination ne peuvent pas être identiques.');
+        }
+        else {
+            // Créer une nouvelle réservation
+            $reservation = new Reservation();
+            $reservation->setDateResa(new \DateTime('now'));
+            $reservation->setStationDep($stationDep);
+            $reservation->setStationFin($stationFin);
+            $reservation->setIdUser($user->getId());
+
+            // Sauvegarder la réservation
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+
+            // Ajouter un message de confirmation
+            $this->addFlash('success', sprintf(
+                'Votre réservation de <b>%s</b> à <b>%s</b> a été enregistrée avec succès.',
+                $reservation->getStationDep(),
+                $reservation->getStationFin()
+            ));
+
+
+        }
+
+        return $this->redirectToRoute('app_map');
     }
 
 

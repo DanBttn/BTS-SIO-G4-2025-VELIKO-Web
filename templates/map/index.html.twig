@@ -19,6 +19,45 @@
         }
     </style>
 
+    {% for label, messages in app.flashes %}
+        <br>
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message|raw }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    {% if is_granted('ROLE_USER') %}
+        <br>
+        <button type="submit" class="btn btn-primary" id="open-reservation-panel">Réserver un trajet</button>
+        <br><br>
+
+        <div id="reservation-panel" class="reservation-panel">
+            <div class="panel-header">
+                <h2>Réserver un trajet</h2>
+                <button id="close-panel" class="close-btn">&times;</button>
+            </div>
+            <div class="panel-content">
+                <form id="reservation-form" method="post" action="{{ path('app_reservation') }}">
+                    <div class="form-group">
+                        <label for="departure">Point de départ :</label>
+                        <input type="text" id="departureSearch" name="departure" class="form-control mb-3" placeholder="Rechercher une station..." required>
+                        <div id="departureResults" class="search-results"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination">Destination :</label>
+                        <input type="text" id="destinationSearch" name="destination" class="form-control mb-3" placeholder="Rechercher une station..." required>
+                        <div id="destinationResults" class="search-results"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Réserver</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
     <div id="map">
         <!-- Ici s'affichera la carte -->
     </div>
@@ -180,5 +219,10 @@
         };
     </script>
 
+    <script>
+        const stations = {{ stations|json_encode|raw }};
+    </script>
+
     <script src="{{ asset('js/favoriMap.js') }}"></script>
+    <script src="{{ asset('js/reservation.js') }}"></script>
 {% endblock %}
