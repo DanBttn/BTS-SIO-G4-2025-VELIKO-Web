@@ -128,7 +128,7 @@ class MapController extends AbstractController
         return $this->redirectToRoute('app_map');
     }
 
-    #[Route('/forced', name: 'app_forced_md')]
+    #[Route('/forced', name: 'app_forced_mdp')]
     public function forced(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
