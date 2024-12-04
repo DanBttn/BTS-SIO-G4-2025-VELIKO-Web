@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Entity\StationFavori;
+use App\Form\PasswordChangeFormType;
 use App\Form\ReservationFormType;
 use App\Form\ResetFormType;
 use App\veliko\Api;
@@ -137,13 +138,23 @@ class MapController extends AbstractController
             throw $this->createAccessDeniedException('Vous devez être connecté pour changer votre mot de passe.');
         }
 
-        $form = $this->createForm(ResetFormType::class);
+        $form = $this->createForm(PasswordChangeFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Obtenez le nouveau mot de passe en clair
-            $plainPassword = $form->get('plainPassword')->getData();
+            $plainPassword = $form->get('new_password')->getData();
+            $confirmPassword = $form->get('confirm_password')->getData();
 
+            if ($plainPassword !== $confirmPassword) {
+                $this->addFlash('danger', 'Les mots de passe ne correspondent pas.');
+                return $this->redirectToRoute('app_forced_mdp');
+            }
+            $currentPassword = $form->get('current_password')->getData();
+            if ($plainPassword == $currentPassword) {
+                $this->addFlash('danger', 'Le nouveau mot de passe ne peut pas être le même que l\'ancien.');
+                return $this->redirectToRoute('app_forced_mdp');
+            }
             // Hachez le mot de passe et mettez-le à jour
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
@@ -165,4 +176,8 @@ class MapController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+
+
 }

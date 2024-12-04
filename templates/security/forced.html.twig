@@ -1,31 +1,70 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ asset('css/css.css') }}">
-    <link href="{{ asset('css/resetPassword.css') }}" rel="stylesheet">
-    <div class="container">
-        <h1 style="text-align: center">Réinitialisation de votre mot de passe</h1>
+    <link href="{{ asset('css/css.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/changePassword.css') }}">
 
-        {{ form_start(form) }}
-        <div class="password-field">
-            {{ form_row(form.plainPassword, { label: 'Nouveau mot de passe' }) }}
-            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;"
-                 onclick="togglePasswordVisibility('{{ form.plainPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
-            <button type="button" onclick="generatePassword('{{ form.plainPassword.vars.id }}', '{{ form.confirmPassword.vars.id }}')" aria-label="Generate secure password" class="generate-password-btn">Générer mot de passe</button>
+    <div style="background-image: url('{{ asset('images/changePassword-background.jpg') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px; border-radius: 10px; position: relative;">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h1>Renouveler le mot de passe</h1>
+            </div>
+            <br>
+
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label for="{{ form.current_password.vars.id }}">Mot de passe actuel</label>
+                <div class="input-group">
+                    {{ form_widget(form.current_password, {'attr': {'class': 'form-control'}}) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.current_password.vars.id }}')" aria-label="Toggle visibility for current password">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.new_password.vars.id }}">Nouveau mot de passe</label>
+                <div class="input-group">
+                    {{ form_widget(form.new_password, {'attr': {'class': 'form-control'}}) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.new_password.vars.id }}')" aria-label="Toggle visibility for new password">
+                        </span>
+                    </div>
+                </div>
+                <button type="button" onclick="generatePassword('{{ form.new_password.vars.id }}', '{{ form.confirm_password.vars.id }}')" class="btn btn-secondary btn-sm" aria-label="Generate secure password">Générer un mot de passe</button>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.confirm_password.vars.id }}">Confirmer le mot de passe</label>
+                <div class="input-group">
+                    {{ form_widget(form.confirm_password, {'attr': {'class': 'form-control'}}) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="{{ asset('images/eye.png') }}" style="width: 20px; cursor: pointer;" onclick="togglePasswordVisibility('{{ form.confirm_password.vars.id }}')" aria-label="Toggle visibility for confirm password">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Renouveler le mot de passe </button>
+            </div>
+            {{ form_end(form) }}
+
+            <div aria-live="polite">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+            </div>
+            <script src="{{ asset('js/generatePassword.js') }}"></script>
+
         </div>
-
-        <div class="password-field">
-            {{ form_row(form.confirmPassword, { label: 'Confirmez le mot de passe' }) }}
-            <img src="{{ asset('images/eye.png') }}" style="width: 16px; cursor: pointer; margin-left: 5px; vertical-align: middle;"
-                 onclick="togglePasswordVisibility('{{ form.confirmPassword.vars.id }}')" alt="Afficher/Masquer le mot de passe">
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="display: block; margin: auto">Renouveler le mot de passe</button>
-        {{ form_end(form) }}
-
-        {# JavaScript for password field #}
-        <script src="{{ asset('js/generatePassword.js') }}"></script>
     </div>
 {% endblock %}
