@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Entity\StationFavori;
+use App\Form\ReservationFormType;
+use App\Form\ResetFormType;
 use App\veliko\Api;
 use Doctrine\ORM\EntityManagerInterface;
 //use http\Client\Response;
@@ -11,15 +13,20 @@ use http\Env;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class MapController extends AbstractController
 {
     #[Route('/map', name: 'app_map')]
-
     public function execute(Request $request, EntityManagerInterface $entityManager, Api $api): Response
     {
+        $user = $this->getUser(); // Récupérer l'utilisateur actuel
 
+        if ($user->isRenouvelerMdp()) {
+            $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
+            return $this->redirectToRoute('app_forced_mdp');
+        }
         $responseStation = $api->getApi("/api/stations");
         $responseStation =  json_decode($responseStation,true);
 
@@ -77,6 +84,8 @@ class MapController extends AbstractController
         );
     }
 
+
+
     #[Route('/reservation', name: 'app_reservation', methods: ['GET', 'POST'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -119,8 +128,41 @@ class MapController extends AbstractController
         return $this->redirectToRoute('app_map');
     }
 
+    #[Route('/forced', name: 'app_forced_md')]
+    public function forced(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
 
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour changer votre mot de passe.');
+        }
 
+        $form = $this->createForm(ResetFormType::class);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Obtenez le nouveau mot de passe en clair
+            $plainPassword = $form->get('plainPassword')->getData();
 
+            // Hachez le mot de passe et mettez-le à jour
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+            $user->setPassword($hashedPassword);
+
+            // Mettre à jour renouvelerMdp à false
+            $user->setRenouvelerMdp(false);
+
+            // Persister les changements
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès.');
+
+            // Redirigez vers une autre page, comme la page d'accueil
+            return $this->redirectToRoute('app_map');
+        }
+
+        return $this->render('security/forced.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

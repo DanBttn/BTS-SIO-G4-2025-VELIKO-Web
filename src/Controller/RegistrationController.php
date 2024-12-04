@@ -49,12 +49,10 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Encoder le mot de passe en clair
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
+            $user->setBlocked(false);
+            $user->setRenouvelerMdp(false);
+//dump($user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData())));
 
             // Générer un token de confirmation unique
             $token = (new GenerateToken())->create();
