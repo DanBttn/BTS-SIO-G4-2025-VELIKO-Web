@@ -29,6 +29,8 @@ class AppFixtures extends Fixture
         $date=new \DateTime("2025-01-01");
         $user->setDateNaiss($date);
         $user->setIsVerified(true);
+        $user->setBlocked(false);
+        $user->setRenouvelerMdp(false);
 
         $manager->persist($user);
 
@@ -45,6 +47,8 @@ class AppFixtures extends Fixture
             $user->setAdresse("1 rue de Paris");
             $user->setConfirmationToken((new GenerateToken())->create());
             $user->setIsVerified(true);
+            $user->setBlocked(false);
+            $user->setRenouvelerMdp(false);
 
             $manager->persist($user);
         }
