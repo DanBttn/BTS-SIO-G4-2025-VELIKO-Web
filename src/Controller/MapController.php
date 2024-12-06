@@ -24,9 +24,12 @@ class MapController extends AbstractController
     {
         $user = $this->getUser(); // Récupérer l'utilisateur actuel
 
+        if ($user!=null)
+        {
         if ($user->isRenouvelerMdp()) {
             $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
             return $this->redirectToRoute('app_forced_mdp');
+        }
         }
         $responseStation = $api->getApi("/api/stations");
         $responseStation =  json_decode($responseStation,true);
