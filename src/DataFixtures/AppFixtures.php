@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Reservation;
 use App\veliko\GenerateToken;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -50,7 +51,16 @@ class AppFixtures extends Fixture
             $user->setBlocked(false);
             $user->setRenouvelerMdp(false);
 
+
             $manager->persist($user);
+            $manager->flush();
+
+            $reservation = new Reservation();
+            $reservation->setIdUser($user->getId());
+            $reservation->setDateResa(new \DateTime('now'));
+            $reservation->setStationDep("Benjamin Godard - Victor Hugo");
+            $reservation->setStationFin("Rouget de L'isle - Watteau");
+            $manager->persist($reservation);
         }
         $manager->flush();
     }
