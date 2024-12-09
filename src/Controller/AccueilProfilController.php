@@ -11,6 +11,11 @@ class AccueilProfilController extends AbstractController
     #[Route('/accueil/profil', name: 'app_accueil_profil')]
     public function index(): Response
     {
+        $user = $this->getUser();
+
+        if ($user->isRenouvelerMdp()) {
+            return $this->redirectToRoute('app_forced_mdp');
+        }
 
         $id_user = $this->getUser()->getId();
 

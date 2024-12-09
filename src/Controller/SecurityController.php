@@ -25,6 +25,11 @@ class SecurityController extends AbstractController
     {
         // Check if the user is already logged in
         $user = $this->getUser();
+        if ($user!=null) {
+            if ($user->isRenouvelerMdp()) {
+                return $this->redirectToRoute('app_forced_mdp');
+            }
+        }
         $error = null;
 
 
