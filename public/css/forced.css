@@ -1,0 +1,59 @@
+/* Général - styles pour le corps */
+body {
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Conteneur principal */
+
+/* Titre */
+h1, h2 {
+    text-align: center;
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+
+/* Champs de saisie */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Boutons */
+button, .button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto; /* Centre les boutons horizontalement */
+    width: 100%;       /* Boutons plus larges */
+    text-align: center; /* Centre le texte à l'intérieur du bouton */
+}
+
+button:hover, .button:hover {
+    background-color: #0056b3;
+}
+
+a
+{
+    cursor: pointer;
+    display: block;
+    margin: 20px auto; /* Centre les boutons horizontalement */
+    width: 95%;       /* Boutons plus larges */
+    text-align: center; /* Centre le texte à l'intérieur du bouton */
+}
