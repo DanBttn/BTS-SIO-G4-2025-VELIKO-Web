@@ -16,6 +16,13 @@ class FavoriController extends AbstractController
     #[Route('/favori/{id_user}', name: 'app_favori')]
     public function index(StationFavoriRepository $stationFavoriRepository): Response
     {
+        $user = $this->getUser();
+        if ($user != null) {
+            if ($user->isRenouvelerMdp()) {
+                $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
+                return $this->redirectToRoute('app_forced_mdp');
+            }
+        }
 
         $id_user = $this->getUser()->getId();
         // Récupérer toutes les stations favorites de l'utilisateur

@@ -19,6 +19,10 @@ class ProfilController extends AbstractController
         if (!$user) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
         }
+        if ($user->isRenouvelerMdp()) {
+            $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
+            return $this->redirectToRoute('app_forced_mdp');
+        }
 
         $form = $this->createForm(ProfilFormType::class, $user);
 

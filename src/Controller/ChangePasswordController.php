@@ -16,9 +16,16 @@ class ChangePasswordController extends AbstractController
     #[Route('/change/password', name: 'app_change_password')]
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, UserInterface $user): Response
     {
+
+        $user = $this->getUser();
+        if ($user->isRenouvelerMdp()) {
+            $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
+            return $this->redirectToRoute('app_forced_mdp');
+        }
         $form = $this->createForm(PasswordChangeFormType::class);
         $form->handleRequest($request);
 
+        //si le user clique sur le bouton on vérifie les mot de passes si ils sont corrects
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $currentPassword = $data['current_password'];

@@ -13,7 +13,11 @@ class DeleteProfilController extends AbstractController
     #[Route('/delete/profil', name: 'app_delete_profil')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser(); // Obtenir l'utilisateur connecté
+        $user = $this->getUser();
+        if ($user->isRenouvelerMdp()) {
+            $this->addFlash('error', 'Veuillez renouveler votre mot de passe.');
+            return $this->redirectToRoute('app_forced_mdp');
+        }// Obtenir l'utilisateur connecté
 
         // Vérifier si le formulaire a été soumis (c'est-à-dire si un token est présent dans la requête)
         if ($request->request->has('_token')) {
