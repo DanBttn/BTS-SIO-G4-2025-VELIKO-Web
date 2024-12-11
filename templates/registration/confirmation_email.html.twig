@@ -1,7 +1,7 @@
 {% block title %}Confirmation d'Email{% endblock %}
 
 {% block content %}
-    <h1>Bonjour {{ user.email }}!</h1>
+    <h1>Bonjour {{ user.prenom }}!</h1>
     <p>Merci de vous être inscrit. Veuillez confirmer votre adresse email en cliquant sur le lien ci-dessous :</p>
     <a href="{{ confirmation_link }}">Confirmer mon email</a>
     <p>Si vous n'avez pas créé de compte, veuillez ignorer cet email.</p>
