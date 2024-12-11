@@ -35,7 +35,17 @@ A la racine du projet, faire la commande suivante :
 ```bash
 symfony console doctrine:migrations:migrate
 ```
-### Etape 6 : Lancer le serveur
+
+### Etape 6 : Insérer les données de test dans la base de données
+
+A la racine du projet, faire la commande suivante :
+```bash
+symfony console doctrine:fixtures:load
+```
+
+Des utilisateurs, un administrateur et des reservations seront insérés dans la base de données.
+
+### Etape 7 : Lancer le serveur
 
 A la racine du projet, faire la commande suivante :
 ```bash
