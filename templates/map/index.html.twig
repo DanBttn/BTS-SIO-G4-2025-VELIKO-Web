@@ -97,7 +97,7 @@
                 var long = position.coords.longitude;
 
                 var marker = L.marker([lat, long]).addTo(macarte);
-                marker.bindPopup("Vous êtes ici !").openPopup();
+                marker.bindPopup("salut").openPopup();
 
                 // Afficher la popup au survol
                 marker.on('mouseover', function (e) {
@@ -222,6 +222,7 @@
     <script>
         const stations = {{ stations|json_encode|raw }};
     </script>
+
 
     <script src="{{ asset('js/favoriMap.js') }}"></script>
     <script src="{{ asset('js/reservation.js') }}"></script>
