@@ -38,7 +38,7 @@ class PasswordChangeFormType extends AbstractType
                     ]),
                     new Regex(
                         '/[a-z]/',
-                        'Votre mot de passe doit contenir au moins une minuscule'
+                        'Votre mot de passe doit contenir au moins une minuscule.'
                     ),
                     new Regex(
                         '/[A-Z]/',
