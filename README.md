@@ -25,7 +25,7 @@ composer install
 
 ### Etape 4 : Lancer la base de données (avec Docker)
 
-A la racine du projet, faire la commande suivante :
+Ouvrir Docker et à la racine du projet, faire la commande suivante :
 ```bash
 docker compose up -d
 ```
@@ -49,7 +49,7 @@ Des utilisateurs, un administrateur et des reservations seront insérés dans la
 
 A la racine du projet, faire la commande suivante :
 ```bash
-symfony serve
+symfony serve -d
 ```
 Le terminal renverra l'adresse du serveur local pour accéder au projet.
 

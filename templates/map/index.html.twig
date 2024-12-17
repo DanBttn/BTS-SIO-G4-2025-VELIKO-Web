@@ -97,7 +97,7 @@
                 var long = position.coords.longitude;
 
                 var marker = L.marker([lat, long]).addTo(macarte);
-                marker.bindPopup("salut").openPopup();
+                marker.bindPopup("Vous êtes ici !").openPopup();
 
                 // Afficher la popup au survol
                 marker.on('mouseover', function (e) {
