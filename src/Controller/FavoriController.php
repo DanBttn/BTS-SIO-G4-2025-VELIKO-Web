@@ -100,7 +100,7 @@ class FavoriController extends AbstractController
     #[Route('/stations', name: 'app_stations')]
     public function stations(Api $api, EntityManagerInterface $entityManager): Response
     {
-        $stations = $api->getApi('/api/stations');
+        $stations = $api->getApi('/api/stations', 'GET', "");
         $stations = json_decode($stations, true);
 
         $stationsNonFavori = [];

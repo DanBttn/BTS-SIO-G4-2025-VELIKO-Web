@@ -31,11 +31,11 @@ class MapController extends AbstractController
             return $this->redirectToRoute('app_forced_mdp');
         }
         }
-        $responseStation = $api->getApi("/api/stations");
+        $responseStation = $api->getApi("/api/stations", "GET","");
         $responseStation =  json_decode($responseStation,true);
 
 
-        $responseStationStatus = $api->getApi("/api/stations/status");
+        $responseStationStatus = $api->getApi("/api/stations/status", "GET","");
         $responseStationStatus =  json_decode($responseStationStatus,true);
 
 
@@ -90,8 +90,8 @@ class MapController extends AbstractController
 
 
 
-    #[Route('/reservation', name: 'app_reservation', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/reservation', name: 'app_reservation', methods: ['GET', 'POST', 'PUT'])]
+    public function index(Request $request, EntityManagerInterface $entityManager, Api $api): Response
     {
         // Vérifier si l'utilisateur est connecté
         $user = $this->getUser();
@@ -99,6 +99,7 @@ class MapController extends AbstractController
         // Récupérer les données du formulaire
         $stationDep = $request->request->get('departure');
         $stationFin = $request->request->get('destination');
+        $typeVelo = $request->request->get('typeVelo');
 
         // Valider les données
         if (empty($stationDep) || empty($stationFin)) {
@@ -107,24 +108,71 @@ class MapController extends AbstractController
         else if ($stationDep === $stationFin) {
             $this->addFlash('error', 'La station de départ et la station de destination ne peuvent pas être identiques.');
         }
+        else if ($typeVelo != "mécanique" && $typeVelo != "électrique") {
+            $this->addFlash('error', 'Veuillez sélectionner un type de vélo valide. "électrique" ou "mécanique" ');
+        }
         else {
-            // Créer une nouvelle réservation
-            $reservation = new Reservation();
-            $reservation->setDateResa(new \DateTime('now'));
-            $reservation->setStationDep($stationDep);
-            $reservation->setStationFin($stationFin);
-            $reservation->setIdUser($user->getId());
+            $stations = $api->getApi("/api/stations", "GET","");
+            $stations =  json_decode($stations,true);
 
-            // Sauvegarder la réservation
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+            foreach ($stations as $station){
+                if ($station['name'] == $stationDep){
+                    $stationDepId = $station['station_id'];
+                }
+                if ($station['name'] == $stationFin){
+                    $stationFinId = $station['station_id'];
+                }
+            }
+            if ($typeVelo == "mécanique"){
+                $typeBike = "mechanical";
+            }
+            else if ($typeVelo == "électrique"){
+                $typeBike = "ebike";
+            }
 
-            // Ajouter un message de confirmation
-            $this->addFlash('success', sprintf(
-                'Votre réservation de <b>%s</b> à <b>%s</b> a été enregistrée avec succès.',
-                $reservation->getStationDep(),
-                $reservation->getStationFin()
-            ));
+            $velos = $api->getApi("/api/velos", "GET", "");
+            $velos = json_decode($velos,true);
+            foreach ($velos as $velo){
+                if ($velo['station_id_available'] == $stationDepId && $velo['type'] == $typeBike){
+                    $veloDispo = true;
+                    $veloDispoId = $velo['velo_id'];
+                    break; // On arrête la boucle si un vélo est trouvé
+                }
+                else{
+                    $veloDispo = false;
+                }
+            }
+
+            if (!$veloDispo){
+                $this->addFlash('error', 'Aucun vélo de type ' . $typeVelo . ' n\'est disponible à la station de départ.');
+                return $this->redirectToRoute('app_map'); // Fin prématurée si aucun vélo
+            }
+            else{
+                $api->getApi("/api/velo/".$veloDispoId."/location", "PUT", $_ENV["API_VELIKO_TOKEN"]);
+                $api->getApi("/api/velo/".$veloDispoId."/restore/".$stationFinId, "PUT", $_ENV["API_VELIKO_TOKEN"]);
+
+                // Créer une nouvelle réservation
+                $reservation = new Reservation();
+                $reservation->setDateResa(new \DateTime('now'));
+                $reservation->setStationDep($stationDep);
+                $reservation->setStationFin($stationFin);
+                $reservation->setIdUser($user->getId());
+
+                // Sauvegarder la réservation
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+
+                // Ajouter un message de confirmation
+                $this->addFlash('success', sprintf(
+                    'Votre réservation de <b>%s</b> à <b>%s</b> a été enregistrée avec succès.',
+                    $reservation->getStationDep(),
+                    $reservation->getStationFin()
+                ));
+
+            }
+
+
+
 
 
         }
