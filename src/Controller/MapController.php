@@ -148,9 +148,10 @@ class MapController extends AbstractController
                 return $this->redirectToRoute('app_map'); // Fin prématurée si aucun vélo
             }
             else{
-                $api->getApi("/api/velo/".$veloDispoId."/location", "PUT", $_ENV["API_VELIKO_TOKEN"]);
-                $api->getApi("/api/velo/".$veloDispoId."/restore/".$stationFinId, "PUT", $_ENV["API_VELIKO_TOKEN"]);
-
+                if(file_exists($_ENV["API_VELIKO_TOKEN"])) {
+                    $api->getApi("/api/velo/" . $veloDispoId . "/location", "PUT", $_ENV["API_VELIKO_TOKEN"]);
+                    $api->getApi("/api/velo/" . $veloDispoId . "/restore/" . $stationFinId, "PUT", $_ENV["API_VELIKO_TOKEN"]);
+                }
                 // Créer une nouvelle réservation
                 $reservation = new Reservation();
                 $reservation->setDateResa(new \DateTime('now'));
