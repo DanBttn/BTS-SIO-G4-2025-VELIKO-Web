@@ -157,6 +157,7 @@ class MapController extends AbstractController
                 $reservation->setStationDep($stationDep);
                 $reservation->setStationFin($stationFin);
                 $reservation->setIdUser($user->getId());
+                $reservation->setTypeVelo($typeVelo);
 
                 // Sauvegarder la réservation
                 $entityManager->persist($reservation);

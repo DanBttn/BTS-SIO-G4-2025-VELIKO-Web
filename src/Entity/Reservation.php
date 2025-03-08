@@ -26,6 +26,9 @@ class Reservation
     #[ORM\Column(length: 255)]
     private ?string $station_fin = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type_velo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Reservation
     public function setStationFin(string $station_fin): static
     {
         $this->station_fin = $station_fin;
+
+        return $this;
+    }
+
+    public function getTypeVelo(): ?string
+    {
+        return $this->type_velo;
+    }
+
+    public function setTypeVelo(string $type_velo): static
+    {
+        $this->type_velo = $type_velo;
 
         return $this;
     }

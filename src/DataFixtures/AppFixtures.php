@@ -60,6 +60,7 @@ class AppFixtures extends Fixture
             $reservation->setDateResa(new \DateTime('now'));
             $reservation->setStationDep("Benjamin Godard - Victor Hugo");
             $reservation->setStationFin("Rouget de L'isle - Watteau");
+            $reservation->setTypeVelo("électrique");
             $manager->persist($reservation);
         }
         $manager->flush();
