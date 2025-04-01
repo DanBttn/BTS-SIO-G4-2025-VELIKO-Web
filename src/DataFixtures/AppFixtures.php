@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Reservation;
+use App\Entity\StationFavori;
 use App\veliko\GenerateToken;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -55,6 +56,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $manager->flush();
 
+
             $reservation = new Reservation();
             $reservation->setIdUser($user->getId());
             $reservation->setDateResa(new \DateTime('now'));
@@ -62,7 +64,16 @@ class AppFixtures extends Fixture
             $reservation->setStationFin("Rouget de L'isle - Watteau");
             $reservation->setTypeVelo("électrique");
             $manager->persist($reservation);
+
+            $stationFavori = new StationFavori();
+            $stationFavori->setIdStation(213688169);
+            $stationFavori->setIdUser($user->getId());
+            $stationFavori->setNomStation("Benjamin Godard - Victor Hugo");
+            $manager->persist($stationFavori);
         }
+
+
+
         $manager->flush();
     }
 

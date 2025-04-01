@@ -53,6 +53,10 @@ symfony serve -d
 ```
 Le terminal renverra l'adresse du serveur local pour accéder au projet.
 
+Vous pourrrez vous connecter avec les identifiants suivants :
+- **email** : user-1@veliko.com
+- **mot de passe** : password
+
 ## Fermeture du projet
 
 ### Etape 1 : Arrêter les images docker 
